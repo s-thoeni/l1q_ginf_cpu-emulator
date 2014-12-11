@@ -1,0 +1,40 @@
+                  * = 0600
+0600   A0 00      LDY #$00
+0602   A5 FE      LDA $FE
+0604   AA         TAX
+0605   A5 FF      LDA $FF
+0607   48         PHA
+0608   8D 00 05   STA $0500
+060B   18         CLC
+060C   6A         ROR A
+060D   6A         ROR A
+060E   6A         ROR A
+060F   6A         ROR A
+0610   8D 01 05   STA $0501
+0613   68         PLA
+0614   29 0F      AND #$0F
+0616   85 01      STA $01
+0618   8A         TXA
+0619   2A         ROL A
+061A   2A         ROL A
+061B   2A         ROL A
+061C   2A         ROL A
+061D   45 01      EOR $01
+061F   99 00 02   STA $0200,Y
+0622   99 00 03   STA $0300,Y
+0625   99 00 04   STA $0400,Y
+0628   88         DEY
+0629   8C 40 05   STY $0540
+062C   4C 04 06   JMP $0604
+062F   48         PHA
+0630   8A         TXA
+0631   48         PHA
+0632   A2 FF      LDX #$FF
+0634   CA         DEX
+0635   A5 FE      LDA $FE
+0637   D0 FB      BNE $0634
+0639   68         PLA
+063A   AA         TAX
+063B   68         PLA
+063C   60         RTS
+063D              .END

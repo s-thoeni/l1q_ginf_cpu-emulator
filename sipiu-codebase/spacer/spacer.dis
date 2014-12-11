@@ -1,0 +1,327 @@
+                 * = 6000
+6000   20 68 06   JSR $0668
+6003   20 12 06   JSR $0612
+6006   20 96 06   JSR $0696
+6009   20 EC 06   JSR $06EC
+600C   20 58 06   JSR $0658
+600F   4C 03 06   JMP $0603
+6012   A5 60      LDA $60
+6014   0A         ASL A
+6015   A8         TAY
+6016   B9 0D 07   LDA $070D,Y
+6019   85 00      STA $00
+601B   C8         INY
+601C   B9 0D 07   LDA $070D,Y
+601F   85 01      STA $01
+6021   A0 2A      LDY #$2A
+6023   B1 00      LDA ($00),Y
+6025   C9 00      CMP #$00
+6027   F0 04      BEQ $602D
+6029   C9 05      CMP #$05
+602B   D0 24      BNE $6051
+602D   A9 05      LDA #$05
+602F   91 00      STA ($00),Y
+6031   A5 60      LDA $60
+6033   C5 61      CMP $61
+6035   F0 19      BEQ $6050
+6037   A5 61      LDA $61
+6039   0A         ASL A
+603A   A8         TAY
+603B   B9 0D 07   LDA $070D,Y
+603E   85 00      STA $00
+6040   C8         INY
+6041   B9 0D 07   LDA $070D,Y
+6044   85 01      STA $01
+6046   A9 00      LDA #$00
+6048   A0 2A      LDY #$2A
+604A   91 00      STA ($00),Y
+604C   A5 60      LDA $60
+604E   85 61      STA $61
+6050   60         RTS
+6051   A5 FE      LDA $FE
+6053   91 00      STA ($00),Y
+6055   4C 51 06   JMP $0651
+6058   A5 FF      LDA $FF
+605A   C9 77      CMP #$77
+605C   D0 03      BNE $6061
+605E   C6 60      DEC $60
+6060   60         RTS
+6061   C9 78      CMP #$78
+6063   D0 02      BNE $6067
+6065   E6 60      INC $60
+6067   60         RTS
+6068   A2 00      LDX #$00
+606A   BD 4D 07   LDA $074D,X
+606D   9D 00 05   STA $0500,X
+6070   E8         INX
+6071   E0 00      CPX #$00
+6073   D0 F5      BNE $606A
+6075   A9 0A      LDA #$0A
+6077   85 60      STA $60
+6079   85 61      STA $61
+607B   A2 00      LDX #$00
+607D   A9 0C      LDA #$0C
+607F   9D 00 02   STA $0200,X
+6082   9D 00 04   STA $0400,X
+6085   CA         DEX
+6086   E0 00      CPX #$00
+6088   D0 F5      BNE $607F
+608A   A9 10      LDA #$10
+608C   85 80      STA $80
+608E   A2 0F      LDX #$0F
+6090   95 81      STA $81,X
+6092   CA         DEX
+6093   10 FB      BPL $6090
+6095   60         RTS
+6096   A9 00      LDA #$00
+6098   85 78      STA $78
+609A   A9 20      LDA #$20
+609C   85 79      STA $79
+609E   A9 C0      LDA #$C0
+60A0   85 7A      STA $7A
+60A2   A9 E0      LDA #$E0
+60A4   85 7B      STA $7B
+60A6   A2 0F      LDX #$0F
+60A8   B5 81      LDA $81,X
+60AA   95 82      STA $82,X
+60AC   A8         TAY
+60AD   B9 0D 07   LDA $070D,Y
+60B0   85 00      STA $00
+60B2   C8         INY
+60B3   B9 0D 07   LDA $070D,Y
+60B6   85 01      STA $01
+60B8   A9 0C      LDA #$0C
+60BA   A4 78      LDY $78
+60BC   91 00      STA ($00),Y
+60BE   C8         INY
+60BF   91 00      STA ($00),Y
+60C1   A4 7B      LDY $7B
+60C3   91 00      STA ($00),Y
+60C5   C8         INY
+60C6   91 00      STA ($00),Y
+60C8   A4 79      LDY $79
+60CA   A9 00      LDA #$00
+60CC   91 00      STA ($00),Y
+60CE   C8         INY
+60CF   91 00      STA ($00),Y
+60D1   A4 7A      LDY $7A
+60D3   91 00      STA ($00),Y
+60D5   C8         INY
+60D6   91 00      STA ($00),Y
+60D8   E6 78      INC $78
+60DA   E6 79      INC $79
+60DC   E6 7A      INC $7A
+60DE   E6 7B      INC $7B
+60E0   E6 78      INC $78
+60E2   E6 79      INC $79
+60E4   E6 7A      INC $7A
+60E6   E6 7B      INC $7B
+60E8   CA         DEX
+60E9   10 BD      BPL $60A8
+60EB   60         RTS
+60EC   A5 80      LDA $80
+60EE   C5 81      CMP $81
+60F0   F0 09      BEQ $60FB
+60F2   A5 80      LDA $80
+60F4   18         CLC
+60F5   E5 81      SBC $81
+60F7   10 0F      BPL $6108
+60F9   30 08      BMI $6103
+60FB   A5 FE      LDA $FE
+60FD   29 0F      AND #$0F
+60FF   0A         ASL A
+6100   85 80      STA $80
+6102   60         RTS
+6103   C6 81      DEC $81
+6105   C6 81      DEC $81
+6107   60         RTS
+6108   E6 81      INC $81
+610A   E6 81      INC $81
+610C   60         RTS
+610D   00         BRK
+610E   02         ???
+610F   20 02 40   JSR $4002
+6112   02         ???
+6113   60         RTS
+6114   02         ???
+6115   80         ???
+6116   02         ???
+6117   A0 02      LDY #$02
+6119   C0 02      CPY #$02
+611B   E0 02      CPX #$02
+611D   00         BRK
+611E   03         ???
+611F   20 03 40   JSR $4003
+6122   03         ???
+6123   60         RTS
+6124   03         ???
+6125   80         ???
+6126   03         ???
+6127   A0 03      LDY #$03
+6129   C0 03      CPY #$03
+612B   E0 03      CPX #$03
+612D   00         BRK
+612E   04         ???
+612F   20 04 40   JSR $4004
+6132   04         ???
+6133   60         RTS
+6134   04         ???
+6135   80         ???
+6136   04         ???
+6137   A0 04      LDY #$04
+6139   C0 04      CPY #$04
+613B   E0 04      CPX #$04
+613D   00         BRK
+613E   05 20      ORA $20
+6140   05 40      ORA $40
+6142   05 60      ORA $60
+6144   05 80      ORA $80
+6146   05 A0      ORA $A0
+6148   05 C0      ORA $C0
+614A   05 E0      ORA $E0
+614C   05 00      ORA $00
+614E   00         BRK
+614F   00         BRK
+6150   00         BRK
+6151   00         BRK
+6152   00         BRK
+6153   00         BRK
+6154   00         BRK
+6155   00         BRK
+6156   00         BRK
+6157   00         BRK
+6158   00         BRK
+6159   00         BRK
+615A   00         BRK
+615B   00         BRK
+615C   00         BRK
+615D   00         BRK
+615E   00         BRK
+615F   00         BRK
+6160   00         BRK
+6161   00         BRK
+6162   00         BRK
+6163   00         BRK
+6164   00         BRK
+6165   00         BRK
+6166   00         BRK
+6167   00         BRK
+6168   00         BRK
+6169   00         BRK
+616A   00         BRK
+616B   00         BRK
+616C   00         BRK
+616D   00         BRK
+616E   00         BRK
+616F   01 01      ORA ($01,X)
+6171   01 06      ORA ($06,X)
+6173   01 01      ORA ($01,X)
+6175   01 00      ORA ($00,X)
+6177   00         BRK
+6178   06 01      ASL $01
+617A   01 06      ORA ($06,X)
+617C   00         BRK
+617D   00         BRK
+617E   01 01      ORA ($01,X)
+6180   01 06      ORA ($06,X)
+6182   00         BRK
+6183   01 01      ORA ($01,X)
+6185   01 00      ORA ($00,X)
+6187   01 01      ORA ($01,X)
+6189   01 06      ORA ($06,X)
+618B   00         BRK
+618C   00         BRK
+618D   06 01      ASL $01
+618F   06 00      ASL $00
+6191   06 00      ASL $00
+6193   01 00      ORA ($00,X)
+6195   06 01      ASL $01
+6197   06 01      ASL $01
+6199   06 00      ASL $00
+619B   01 00      ORA ($00,X)
+619D   01 00      ORA ($00,X)
+619F   06 00      ASL $00
+61A1   06 01      ASL $01
+61A3   06 00      ASL $00
+61A5   06 00      ASL $00
+61A7   01 00      ORA ($00,X)
+61A9   06 01      ASL $01
+61AB   06 00      ASL $00
+61AD   00         BRK
+61AE   06 01      ASL $01
+61B0   01 06      ORA ($06,X)
+61B2   06 01      ASL $01
+61B4   01 01      ORA ($01,X)
+61B6   00         BRK
+61B7   06 01      ASL $01
+61B9   00         BRK
+61BA   00         BRK
+61BB   01 00      ORA ($00,X)
+61BD   01 06      ORA ($06,X)
+61BF   00         BRK
+61C0   06 06      ASL $06
+61C2   01 01      ORA ($01,X)
+61C4   01 00      ORA ($00,X)
+61C6   06 01      ASL $01
+61C8   00         BRK
+61C9   06 01      ASL $01
+61CB   00         BRK
+61CC   06 06      ASL $06
+61CE   06 06      ASL $06
+61D0   06 01      ASL $01
+61D2   06 01      ASL $01
+61D4   01 06      ORA ($06,X)
+61D6   06 06      ASL $06
+61D8   01 01      ORA ($01,X)
+61DA   01 01      ORA ($01,X)
+61DC   06 01      ASL $01
+61DE   06 06      ASL $06
+61E0   06 06      ASL $06
+61E2   01 06      ORA ($06,X)
+61E4   06 06      ASL $06
+61E6   06 01      ASL $01
+61E8   01 01      ORA ($01,X)
+61EA   06 06      ASL $06
+61EC   06 06      ASL $06
+61EE   01 01      ORA ($01,X)
+61F0   01 01      ORA ($01,X)
+61F2   0E 01 01   ASL $0101
+61F5   0E 06 06   ASL $0606
+61F8   01 01      ORA ($01,X)
+61FA   06 01      ASL $01
+61FC   06 01      ASL $01
+61FE   01 01      ORA ($01,X)
+6200   01 0E      ORA ($0E,X)
+6202   01 01      ORA ($01,X)
+6204   01 01      ORA ($01,X)
+6206   06 01      ASL $01
+6208   01 06      ORA ($06,X)
+620A   01 06      ORA ($06,X)
+620C   06 06      ASL $06
+620E   01 01      ORA ($01,X)
+6210   01 06      ORA ($06,X)
+6212   0E 01 01   ASL $0101
+6215   06 0E      ASL $0E
+6217   06 01      ASL $01
+6219   01 0E      ORA ($0E,X)
+621B   01 0E      ORA ($0E,X)
+621D   06 01      ASL $01
+621F   01 01      ORA ($01,X)
+6221   06 0E      ASL $0E
+6223   01 01      ORA ($01,X)
+6225   01 0E      ORA ($0E,X)
+6227   01 01      ORA ($01,X)
+6229   06 01      ASL $01
+622B   06 0E      ASL $0E
+622D   0E 0E 06   ASL $060E
+6230   0E 0E 06   ASL $060E
+6233   0E 0E 06   ASL $060E
+6236   0E 0E 06   ASL $060E
+6239   0E 0E 06   ASL $060E
+623C   0E 0E 06   ASL $060E
+623F   0E 0E 06   ASL $060E
+6242   0E 0E 06   ASL $060E
+6245   0E 0E 06   ASL $060E
+6248   0E 0E 06   ASL $060E
+624B   0E 0E 00   ASL $000E
+624E              .END

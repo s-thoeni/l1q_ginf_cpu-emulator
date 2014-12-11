@@ -1,0 +1,126 @@
+\documentclass[a4paper]{article} 
+
+% deutsche Sonderzeichen benutzen
+%\usepackage[german]{babel}
+
+% wegen deutschen Umlauten
+%\usepackage[latin1]{inputenc}
+
+\usepackage[T1]{fontenc}
+% hat was mit Abstaenden zu tun
+\frenchspacing
+
+%Nomen est omen: create bit and Bytes
+\usepackage{bytefield}
+
+%we very much like \xhookleftarrow
+\usepackage{empheq}
+%we very much like inline lists \begin{inparaenum}
+\usepackage{paralist}
+%urls with hyperref
+\usepackage{hyperref}
+
+% sidewaystable
+\usepackage{rotating}
+
+% m{}, p{}, b{} columnt tabel spec
+\usepackage{array}
+
+\usepackage{tikz-timing}
+
+%urls with url
+\usepackage{url}
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+%multiple rows in table
+\usepackage{multirow}
+\usepackage{latexsym}
+
+\usepackage{fancyhdr}                     %Declares the package fancyhdr
+\pagestyle{fancy}                         %Forces the page to use the fancy template
+\fancyhead[L]{Project: 6502}
+\fancyhead[R]{7.7.2011}
+\fancyfoot[L]{\tiny{7.7.2011}}
+\fancyfoot[R]{\tiny{bho1@bfh.ch}}
+
+\begin{document} 
+\center{{\Large \textsc{\underline{6502 Instruction Opcode Table}}}}
+\setlength\parskip{0.5cm}
+
+\begin{sidewaystable}
+\end{sidewaystable}
+
+
+%\begin{table}[h]
+\begin{sidewaystable}
+  \centering
+  \begin{tabular}{llllllllllllllllllllll}
+Opcode & imp & imm & zp & zpx  & zpy & izx & izy & abs & abx  & aby & ind & rel & Function  & N & V & B & D & I & Z & C & \\
+ORA &   & 0x09 & 0x05 & 0x15  &   & 0x01 & 0x11 & 0x0D & 0x1D  & 0x19 &   &   & A:=A or {adr}  & * &   &   &   &   & * &   & \\
+AND &   & 0x29 & 0x25 & 0x35  &   & 0x21 & 0x31 & 0x2D & 0x3D  & 0x39 &   &   & A:=A\&{adr}  & * &   &   &   &   & * &   & \\
+EOR &   & 0x49 & 0x45 & 0x55  &   & 0x41 & 0x51 & 0x4D & 0x5D  & 0x59 &   &   & A:=A exor {adr}  & * &   &   &   &   & * &   & \\
+ADC &   & 0x69 & 0x65 & 0x75  &   & 0x61 & 0x71 & 0x6D & 0x7D  & 0x79 &   &   & A:=A+{adr}  & * & * &   &   &   & * & * & \\
+SBC &   & 0xE9 & 0xE5 & 0xF5  &   & 0xE1 & 0xF1 & 0xED & 0xFD  & 0xF9 &   &   & A:=A-{adr}  & * & * &   &   &   & * & * & \\
+CMP &   & 0xC9 & 0xC5 & 0xD5  &   & 0xC1 & 0xD1 & 0xCD & 0xDD  & 0xD9 &   &   & A-{adr}  & * &   &   &   &   & * & * & \\
+CPX &   & 0xE0 & 0xE4 &    &   &   &   & 0xEC &    &   &   &   & X-{adr}  & * &   &   &   &   & * & * & \\
+CPY &   & 0xC0 & 0xC4 &    &   &   &   & 0xCC &    &   &   &   & Y-{adr}  & * &   &   &   &   & * & * & \\
+DEC &   &   & 0xC6 & 0xD6  &   &   &   & 0xCE & 0xDE  &   &   &   & {adr}:={adr}-1  & * &   &   &   &   & * &   & \\
+DEX & 0xCA &   &   &    &   &   &   &   &    &   &   &   & X:=X-1  & * &   &   &   &   & * &   & \\
+DEY & 0x88 &   &   &    &   &   &   &   &    &   &   &   & Y:=Y-1  & * &   &   &   &   & * &   & \\
+INC &   &   & 0xE6 & 0xF6  &   &   &   & 0xEE & 0xFE  &   &   &   & {adr}:={adr}+1  & * &   &   &   &   & * &   & \\
+INX & 0xE8 &   &   &    &   &   &   &   &    &   &   &   & X:=X+1  & * &   &   &   &   & * &   & \\
+INY & 0xC8 &   &   &    &   &   &   &   &    &   &   &   & Y:=Y+1  & * &   &   &   &   & * &   & \\
+ASL & 0x0A &   & 0x06 & 0x16  &   &   &   & 0x0E & 0x1E  &   &   &   & {adr}:={adr}*2  & * &   &   &   &   & * & * & \\
+ROL & 0x2A &   & 0x26 & 0x36  &   &   &   & 0x2E & 0x3E  &   &   &   & {adr}:={adr}*2+C  & * &   &   &   &   & * & * & \\
+LSR & 0x4A &   & 0x46 & 0x56  &   &   &   & 0x4E & 0x5E  &   &   &   & {adr}:={adr}/2  & * &   &   &   &   & * & * & \\
+ROR & 0x6A &   & 0x66 & 0x76  &   &   &   & 0x6E & 0x7E  &   &   &   & {adr}:={adr}/2+C*128  & * &   &   &   &   & * & * & \\
+
+  \end{tabular}
+  \caption{Instruktionen geordnet nach Funktionsgruppen}
+  \label{tab:laa}
+\end{sidewaystable}
+%\end{table}
+
+\newpage
+\def\degr{${}^\circ$}
+\begin{tikztimingtable}
+  Clock 128MHz    & H   12{2C} G \\ % ends with edge
+  Clock 128 90   & [C] 12{2C} C \\ % starts with edge
+Dx & DD{Data}UDUD\\
+Ax & UUDDDDDD{Address}UDU\\
+R/$\overline{\text{W}}$ & HHHHHLLLHHH\\
+\end{tikztimingtable}%
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{m{2cm}m{2cm}m{2.5cm}lccm{1cm}m{2cm}m{2cm}}
+\vbox{Instruction Mnemonic}& Addressing Mode& Assembler\qquad Format & Operation & opcode& Bytes & Clock Cycles & Status Registers & Instruction Mnemonic \\
+ \hline \hline
+LDA & Immediate & LDA \#oper & \#$\rightarrow$ A & A9 & 2 & 2 & todo & LDA \\
+ & Zeropage & LDA addr & MEM[00addr]$\rightarrow$A & A5 & 2 & 3 & todo & LDA \\
+ & Zeropage,X & LDA addr,X & MEM[00|addr+X]$\rightarrow$ A & B5 & 2 & 4 & todo & LDA \\
+ & Absolute & LDA ADDR & MEM[ADDR]$\rightarrow$A & AD & 3 & 4 & todo & LDA \\
+ & Absolute,X & LDA ADDR,X & MEM[ADDR+X]$\rightarrow$ A & BD & 3 & 4* & todo & LDA \\
+ & Absolute,Y & LDA ADDR,Y & MEM[ADDR+Y]$\rightarrow$ A & B9 & 3 & 4* & todo & LDA \\
+ & (Indirect,X) & LDA (addr,X) & MEM[MEM[addr+X-1|addr+X]]$\rightarrow $A & A1 & 2 & 6 & todo & LDA \\
+ & (Indirect),Y & LDA (addr),Y & MEM[MEM[addr+1]+Y]$\rightarrow $A & B1 & 2 & 5* & todo & LDA \\
+& &%
+% \begin{tabular}{cc}
+%   haha & HOHO\\
+%   hihi & HJHJ\\
+% \end{tabular}
+& & & & & & \\
+ \hline
+
+  \end{tabular}
+  \caption{6502 Opcode table}
+  \label{tab:6502opcodes}
+\end{table}
+
+\end{document}

@@ -1,0 +1,24 @@
+0x00  &  BRK  & 1  & 0  &  imp  &  interrupt  \newline  (S)-=:PC,P PC:=(\$FFFE)  & \flags{NVBDIZC}{ --1-1-- } & \begin{lstlisting}    PC = PC + 1 
+    bPoke(SP,PC.h) 
+    SP = SP - 1 
+    bPoke(SP,PC.l) 
+    SP = SP - 1 
+    bPoke(SP, (P|\$10) ) 
+    SP = SP - 1 
+    l = bPeek(\$FFFE) 
+    h = bPeek(\$FFFF)<<8 
+    PC = h|l              
+ 
+\end{lstlisting} &  \textbf{\texttt{ BRK  }} \\
+0x01  &  ORA  & 2  & 6  &  izx  &  or with accumulator  \newline  A:=A or {adr}  & \flags{NVBDIZC}{ *----*- } & \begin{lstlisting}    A = A | M 
+    P.N = A.7 
+    P.Z = (A==0) ? 1:0  
+ 
+\end{lstlisting} &  \textbf{\texttt{ ORA  (\$A5,X)}} \\
+0x05  &  ORA  & 2  & 3  &  zp  &  or with accumulator  \newline  A:=A or {adr}  & \flags{NVBDIZC}{ *----*- } & \begin{lstlisting}    A = A | M 
+    P.N = A.7 
+    P.Z = (A==0) ? 1:0  
+ 
+\end{lstlisting} &  \textbf{\texttt{ ORA  \$AB}} \\
+0x06  &  ASL  & 2  & 5  &  zp  &  arithmetic shift left  \newline  {adr}:={adr}*2  & \flags{NVBDIZC}{ *----** } & \begin{lstlisting}    P.C = B.7 
+    B = (B << 1) \& \$FE 

@@ -1,0 +1,116 @@
+0600   A9 FE      LDA #$FE
+0602   85 02      STA $02
+0604   A9 EE      LDA #$EE
+0606   85 03      STA $03
+0608   A9 00      LDA #$00
+060A   85 00      STA $00
+060C   A9 02      LDA #$02
+060E   85 01      STA $01
+0610   A2 20      LDX #$20
+0612   A9 02      LDA #$02
+0614   9D FF 01   STA $01FF,X
+0617   9D DF 05   STA $05DF,X
+061A   A0 00      LDY #$00
+061C   91 00      STA ($00),Y
+061E   A0 1F      LDY #$1F
+0620   91 00      STA ($00),Y
+0622   E0 01      CPX #$01
+0624   F0 15      BEQ $063B
+0626   A9 03      LDA #$03
+0628   A0 17      LDY #$17
+062A   91 00      STA ($00),Y
+062C   A9 04      LDA #$04
+062E   C8         INY
+062F   91 00      STA ($00),Y
+0631   A9 05      LDA #$05
+0633   C8         INY
+0634   91 00      STA ($00),Y
+0636   A9 06      LDA #$06
+0638   C8         INY
+0639   91 00      STA ($00),Y
+063B   18         CLC
+063C   A5 00      LDA $00
+063E   69 20      ADC #$20
+0640   85 00      STA $00
+0642   A5 01      LDA $01
+0644   69 00      ADC #$00
+0646   85 01      STA $01
+0648   CA         DEX
+0649   D0 C7      BNE $0612
+064B   A6 02      LDX $02
+064D   A4 03      LDY $03
+064F   A9 44      LDA #$44
+0651   85 00      STA $00
+0653   A9 02      LDA #$02
+0655   85 01      STA $01
+0657   8A         TXA
+0658   48         PHA
+0659   A9 01      LDA #$01
+065B   A2 00      LDX #$00
+065D   81 00      STA ($00,X)
+065F   68         PLA
+0660   AA         TAX
+0661   CA         DEX
+0662   F0 46      BEQ $06AA
+0664   88         DEY
+0665   D0 FA      BNE $0661
+0667   8A         TXA
+0668   48         PHA
+0669   20 D5 06   JSR $06D5
+066C   A5 03      LDA $03
+066E   29 01      AND #$01
+0670   D0 0D      BNE $067F
+0672   18         CLC
+0673   A5 00      LDA $00
+0675   69 20      ADC #$20
+0677   85 00      STA $00
+0679   90 11      BCC $068C
+067B   E6 01      INC $01
+067D   D0 0D      BNE $068C
+067F   38         SEC
+0680   A5 00      LDA $00
+0682   E9 20      SBC #$20
+0684   85 00      STA $00
+0686   A5 01      LDA $01
+0688   E9 00      SBC #$00
+068A   85 01      STA $01
+068C   A2 00      LDX #$00
+068E   A1 00      LDA ($00,X)
+0690   D0 07      BNE $0699
+0692   A4 03      LDY $03
+0694   68         PLA
+0695   AA         TAX
+0696   4C 57 06   JMP $0657
+0699   C9 02      CMP #$02
+069B   F0 04      BEQ $06A1
+069D   A9 00      LDA #$00
+069F   81 00      STA ($00,X)
+06A1   A9 01      LDA #$01
+06A3   45 03      EOR $03
+06A5   85 03      STA $03
+06A7   4C 6C 06   JMP $066C
+06AA   20 D5 06   JSR $06D5
+06AD   A5 02      LDA $02
+06AF   29 01      AND #$01
+06B1   D0 04      BNE $06B7
+06B3   E6 00      INC $00
+06B5   D0 02      BNE $06B9
+06B7   C6 00      DEC $00
+06B9   A2 00      LDX #$00
+06BB   A1 00      LDA ($00,X)
+06BD   D0 05      BNE $06C4
+06BF   A6 02      LDX $02
+06C1   4C 57 06   JMP $0657
+06C4   C9 02      CMP #$02
+06C6   F0 04      BEQ $06CC
+06C8   A9 00      LDA #$00
+06CA   81 00      STA ($00,X)
+06CC   A9 01      LDA #$01
+06CE   45 02      EOR $02
+06D0   85 02      STA $02
+06D2   4C AD 06   JMP $06AD
+06D5   A9 00      LDA #$00
+06D7   AA         TAX
+06D8   81 00      STA ($00,X)
+06DA   60         RTS
+06DB              .END

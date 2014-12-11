@@ -1,0 +1,133 @@
+start:
+ lda #15
+ sta $0 ;xpos
+ sta $1 ;ypos
+
+loop:
+ lda $fe
+ and #3
+ cmp #0
+ beq go_left
+ cmp #1
+ beq go_right
+ cmp #2
+ beq go_down
+ dec $1
+draw:
+ lda $1
+ and #$1f
+ asl
+ tax
+ lda ypos,x
+ sta $2
+ inx
+ lda ypos,x
+ sta $3
+ lda $0
+ and #$1f
+ tay
+ lda ($2),y
+ tax
+ inx
+ txa
+ sta ($2),y
+ jmp loop
+go_down:
+ inc $1
+ jmp draw
+go_left:
+ dec $0
+ jmp draw
+go_right:
+ inc $0
+ jmp draw
+
+ypos:
+ dcb $00,$02,$20,$02,$40,$02,$60,$02
+ dcb $80,$02,$a0,$02,$c0,$02,$e0,$02
+ dcb $00,$03,$20,$03,$40,$03,$60,$03
+ dcb $80,$03,$a0,$03,$c0,$03,$e0,$03
+ dcb $00,$04,$20,$04,$40,$04,$60,$04
+ dcb $80,$04,$a0,$04,$c0,$04,$e0,$04
+ dcb $00,$05,$20,$05,$40,$05,$60,$05
+ dcb $80,$05,$a0,$05,$c0,$05,$e0,$05
+
+0600   A9 0F      LDA #$0F
+0602   85 00      STA $00
+0604   85 01      STA $01
+0606   A5 FE      LDA $FE
+0608   29 03      AND #$03
+060A   C9 00      CMP #$00
+060C   F0 2F      BEQ $063D
+060E   C9 01      CMP #$01
+0610   F0 30      BEQ $0642
+0612   C9 02      CMP #$02
+0614   F0 22      BEQ $0638
+0616   C6 01      DEC $01
+0618   A5 01      LDA $01
+061A   29 1F      AND #$1F
+061C   0A         ASL A
+061D   AA         TAX
+061E   BD 47 06   LDA $0647,X
+0621   85 02      STA $02
+0623   E8         INX
+0624   BD 47 06   LDA $0647,X
+0627   85 03      STA $03
+0629   A5 00      LDA $00
+062B   29 1F      AND #$1F
+062D   A8         TAY
+062E   B1 02      LDA ($02),Y
+0630   AA         TAX
+0631   E8         INX
+0632   8A         TXA
+0633   91 02      STA ($02),Y
+0635   4C 06 06   JMP $0606
+0638   E6 01      INC $01
+063A   4C 18 06   JMP $0618
+063D   C6 00      DEC $00
+063F   4C 18 06   JMP $0618
+0642   E6 00      INC $00
+0644   4C 18 06   JMP $0618
+0647   00         BRK
+0648   02         ???
+0649   20 02 40   JSR $4002
+064C   02         ???
+064D   60         RTS
+064E   02         ???
+064F   80         ???
+0650   02         ???
+0651   A0 02      LDY #$02
+0653   C0 02      CPY #$02
+0655   E0 02      CPX #$02
+0657   00         BRK
+0658   03         ???
+0659   20 03 40   JSR $4003
+065C   03         ???
+065D   60         RTS
+065E   03         ???
+065F   80         ???
+0660   03         ???
+0661   A0 03      LDY #$03
+0663   C0 03      CPY #$03
+0665   E0 03      CPX #$03
+0667   00         BRK
+0668   04         ???
+0669   20 04 40   JSR $4004
+066C   04         ???
+066D   60         RTS
+066E   04         ???
+066F   80         ???
+0670   04         ???
+0671   A0 04      LDY #$04
+0673   C0 04      CPY #$04
+0675   E0 04      CPX #$04
+0677   00         BRK
+0678   05 20      ORA $20
+067A   05 40      ORA $40
+067C   05 60      ORA $60
+067E   05 80      ORA $80
+0680   05 A0      ORA $A0
+0682   05 C0      ORA $C0
+0684   05 E0      ORA $E0
+0686   05 00      ORA $00
+0688              .END

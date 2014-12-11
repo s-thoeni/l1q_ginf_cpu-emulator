@@ -1,0 +1,168 @@
+cycle	ab	db	rw	Fetch	pc	a	x	y	s	p	alu	sb
+0	0000	20	1	JSR Abs	0000	aa	00	00	fd	nv‑BdIZc	00	ff
+500	061e	06	1		061e	33	0b	37	fb	nv‑BdIzc	6e	ff
+500	061e	06	1		061e	33	0b	37	fb	nv‑BdIzc	00	ff
+501	0600	e8	1	INX	0600	33	0b	37	fb	nv‑BdIzc	00	ff
+501	0600	e8	1	INX	0600	33	0b	37	fb	nv‑BdIzc	06	06
+502	0601	8a	1		0601	33	0b	37	fb	nv‑BdIzc	06	06
+502	0601	8a	1		0601	33	0b	37	fb	nv‑BdIzc	06	ff
+503	0601	8a	1	TXA	0601	33	0b	37	fb	nv‑BdIzc	06	0b
+503	0601	8a	1	TXA	0601	33	0b	37	fb	nv‑BdIzc	0c	0c
+504	0602	99	1		0602	33	0c	37	fb	nv‑BdIzc	0c	0c
+504	0602	99	1		0602	33	0c	37	fb	nv‑BdIzc	18	ff
+505	0602	99	1	STA Abs,Y	0602	0c	0c	37	fb	nv‑BdIzc	18	0c
+505	0602	99	1	STA Abs,Y	0602	0c	0c	37	fb	nv‑BdIzc	18	18
+506	0603	00	1		0603	0c	0c	37	fb	nv‑BdIzc	18	18
+506	0603	00	1		0603	0c	0c	37	fb	nv‑BdIzc	30	ff
+507	0604	02	1		0604	0c	0c	37	fb	nv‑BdIzc	30	37
+507	0604	02	1		0604	0c	0c	37	fb	nv‑BdIzc	37	ff
+508	0237	00	1		0605	0c	0c	37	fb	nv‑BdIzc	37	ff
+508	0237	00	1		0605	0c	0c	37	fb	nv‑BdIzc	03	03
+509	0237	00	0		0605	0c	0c	37	fb	nv‑BdIzc	03	03
+509	0237	0c	0		0605	0c	0c	37	fb	nv‑BdIzc	0f	ff
+510	0605	99	1	STA Abs,Y	0605	0c	0c	37	fb	nv‑BdIzc	0f	0c
+510	0605	99	1	STA Abs,Y	0605	0c	0c	37	fb	nv‑BdIzc	18	18
+511	0606	00	1		0606	0c	0c	37	fb	nv‑BdIzc	18	18
+511	0606	00	1		0606	0c	0c	37	fb	nv‑BdIzc	30	ff
+512	0607	03	1		0607	0c	0c	37	fb	nv‑BdIzc	30	37
+512	0607	03	1		0607	0c	0c	37	fb	nv‑BdIzc	37	ff
+513	0337	00	1		0608	0c	0c	37	fb	nv‑BdIzc	37	ff
+513	0337	00	1		0608	0c	0c	37	fb	nv‑BdIzc	04	04
+514	0337	00	0		0608	0c	0c	37	fb	nv‑BdIzc	04	04
+514	0337	0c	0		0608	0c	0c	37	fb	nv‑BdIzc	10	ff
+515	0608	99	1	STA Abs,Y	0608	0c	0c	37	fb	nv‑BdIzc	10	0c
+515	0608	99	1	STA Abs,Y	0608	0c	0c	37	fb	nv‑BdIzc	18	18
+516	0609	00	1		0609	0c	0c	37	fb	nv‑BdIzc	18	18
+516	0609	00	1		0609	0c	0c	37	fb	nv‑BdIzc	30	ff
+517	060a	04	1		060a	0c	0c	37	fb	nv‑BdIzc	30	37
+517	060a	04	1		060a	0c	0c	37	fb	nv‑BdIzc	37	ff
+518	0437	00	1		060b	0c	0c	37	fb	nv‑BdIzc	37	ff
+518	0437	00	1		060b	0c	0c	37	fb	nv‑BdIzc	05	05
+519	0437	00	0		060b	0c	0c	37	fb	nv‑BdIzc	05	05
+519	0437	0c	0		060b	0c	0c	37	fb	nv‑BdIzc	11	ff
+520	060b	99	1	STA Abs,Y	060b	0c	0c	37	fb	nv‑BdIzc	11	0c
+520	060b	99	1	STA Abs,Y	060b	0c	0c	37	fb	nv‑BdIzc	18	18
+521	060c	00	1		060c	0c	0c	37	fb	nv‑BdIzc	18	18
+521	060c	00	1		060c	0c	0c	37	fb	nv‑BdIzc	30	ff
+522	060d	05	1		060d	0c	0c	37	fb	nv‑BdIzc	30	37
+522	060d	05	1		060d	0c	0c	37	fb	nv‑BdIzc	37	ff
+523	0537	00	1		060e	0c	0c	37	fb	nv‑BdIzc	37	ff
+523	0537	00	1		060e	0c	0c	37	fb	nv‑BdIzc	06	06
+524	0537	00	0		060e	0c	0c	37	fb	nv‑BdIzc	06	06
+524	0537	0c	0		060e	0c	0c	37	fb	nv‑BdIzc	12	ff
+525	060e	c8	1	INY	060e	0c	0c	37	fb	nv‑BdIzc	12	0c
+525	060e	c8	1	INY	060e	0c	0c	37	fb	nv‑BdIzc	18	18
+526	060f	98	1		060f	0c	0c	37	fb	nv‑BdIzc	18	18
+526	060f	98	1		060f	0c	0c	37	fb	nv‑BdIzc	30	ff
+527	060f	98	1	TYA	060f	0c	0c	37	fb	nv‑BdIzc	30	37
+527	060f	98	1	TYA	060f	0c	0c	37	fb	nv‑BdIzc	38	38
+528	0610	c5	1		0610	0c	0c	38	fb	nv‑BdIzc	38	38
+528	0610	c5	1		0610	0c	0c	38	fb	nv‑BdIzc	70	ff
+529	0610	c5	1	CMP zp	0610	38	0c	38	fb	nv‑BdIzc	70	38
+529	0610	c5	1	CMP zp	0610	38	0c	38	fb	nv‑BdIzc	70	70
+530	0611	10	1		0611	38	0c	38	fb	nv‑BdIzc	70	70
+530	0611	10	1		0611	38	0c	38	fb	nv‑BdIzc	e0	ff
+531	0010	e8	1		0612	38	0c	38	fb	nv‑BdIzc	e0	ff
+531	0010	e8	1		0612	38	0c	38	fb	nv‑BdIzc	0f	ff
+532	0612	d0	1	BNE 	0612	38	0c	38	fb	nv‑BdIzc	0f	38
+532	0612	d0	1	BNE 	0612	38	0c	38	fb	nv‑BdIzc	50	50
+533	0613	04	1		0613	38	0c	38	fb	nv‑BdIzc	50	50
+533	0613	04	1		0613	38	0c	38	fb	nv‑BdIzc	a0	ff
+534	0614	c8	1		0614	38	0c	38	fb	nv‑BdIzc	a0	04
+534	0614	c8	1		0614	38	0c	38	fb	nv‑BdIzc	18	06
+535	0618	c8	1	INY	0618	38	0c	38	fb	nv‑BdIzc	18	06
+535	0618	c8	1	INY	0618	38	0c	38	fb	nv‑BdIzc	07	07
+536	0619	c8	1		0619	38	0c	38	fb	nv‑BdIzc	07	07
+536	0619	c8	1		0619	38	0c	38	fb	nv‑BdIzc	0e	ff
+537	0619	c8	1	INY	0619	38	0c	38	fb	nv‑BdIzc	0e	38
+537	0619	c8	1	INY	0619	38	0c	38	fb	nv‑BdIzc	39	39
+538	061a	c8	1		061a	38	0c	39	fb	nv‑BdIzc	39	39
+538	061a	c8	1		061a	38	0c	39	fb	nv‑BdIzc	72	ff
+539	061a	c8	1	INY	061a	38	0c	39	fb	nv‑BdIzc	72	39
+539	061a	c8	1	INY	061a	38	0c	39	fb	nv‑BdIzc	3a	3a
+540	061b	c8	1		061b	38	0c	3a	fb	nv‑BdIzc	3a	3a
+540	061b	c8	1		061b	38	0c	3a	fb	nv‑BdIzc	74	ff
+541	061b	c8	1	INY	061b	38	0c	3a	fb	nv‑BdIzc	74	3a
+541	061b	c8	1	INY	061b	38	0c	3a	fb	nv‑BdIzc	3b	3b
+542	061c	4c	1		061c	38	0c	3b	fb	nv‑BdIzc	3b	3b
+542	061c	4c	1		061c	38	0c	3b	fb	nv‑BdIzc	76	ff
+543	061c	4c	1	JMP Abs	061c	38	0c	3b	fb	nv‑BdIzc	76	3b
+543	061c	4c	1	JMP Abs	061c	38	0c	3b	fb	nv‑BdIzc	3c	3c
+544	061d	00	1		061d	38	0c	3c	fb	nv‑BdIzc	3c	3c
+544	061d	00	1		061d	38	0c	3c	fb	nv‑BdIzc	78	ff
+545	061e	06	1		061e	38	0c	3c	fb	nv‑BdIzc	78	ff
+545	061e	06	1		061e	38	0c	3c	fb	nv‑BdIzc	00	ff
+546	0600	e8	1	INX	0600	38	0c	3c	fb	nv‑BdIzc	00	ff
+546	0600	e8	1	INX	0600	38	0c	3c	fb	nv‑BdIzc	06	06
+547	0601	8a	1		0601	38	0c	3c	fb	nv‑BdIzc	06	06
+547	0601	8a	1		0601	38	0c	3c	fb	nv‑BdIzc	06	ff
+548	0601	8a	1	TXA	0601	38	0c	3c	fb	nv‑BdIzc	06	0c
+548	0601	8a	1	TXA	0601	38	0c	3c	fb	nv‑BdIzc	0d	0d
+549	0602	99	1		0602	38	0d	3c	fb	nv‑BdIzc	0d	0d
+549	0602	99	1		0602	38	0d	3c	fb	nv‑BdIzc	1a	ff
+550	0602	99	1	STA Abs,Y	0602	0d	0d	3c	fb	nv‑BdIzc	1a	0d
+550	0602	99	1	STA Abs,Y	0602	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+551	0603	00	1		0603	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+551	0603	00	1		0603	0d	0d	3c	fb	nv‑BdIzc	34	ff
+552	0604	02	1		0604	0d	0d	3c	fb	nv‑BdIzc	34	3c
+552	0604	02	1		0604	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+553	023c	00	1		0605	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+553	023c	00	1		0605	0d	0d	3c	fb	nv‑BdIzc	03	03
+554	023c	00	0		0605	0d	0d	3c	fb	nv‑BdIzc	03	03
+554	023c	0d	0		0605	0d	0d	3c	fb	nv‑BdIzc	10	ff
+555	0605	99	1	STA Abs,Y	0605	0d	0d	3c	fb	nv‑BdIzc	10	0d
+555	0605	99	1	STA Abs,Y	0605	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+556	0606	00	1		0606	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+556	0606	00	1		0606	0d	0d	3c	fb	nv‑BdIzc	34	ff
+557	0607	03	1		0607	0d	0d	3c	fb	nv‑BdIzc	34	3c
+557	0607	03	1		0607	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+558	033c	00	1		0608	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+558	033c	00	1		0608	0d	0d	3c	fb	nv‑BdIzc	04	04
+559	033c	00	0		0608	0d	0d	3c	fb	nv‑BdIzc	04	04
+559	033c	0d	0		0608	0d	0d	3c	fb	nv‑BdIzc	11	ff
+560	0608	99	1	STA Abs,Y	0608	0d	0d	3c	fb	nv‑BdIzc	11	0d
+560	0608	99	1	STA Abs,Y	0608	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+561	0609	00	1		0609	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+561	0609	00	1		0609	0d	0d	3c	fb	nv‑BdIzc	34	ff
+562	060a	04	1		060a	0d	0d	3c	fb	nv‑BdIzc	34	3c
+562	060a	04	1		060a	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+563	043c	00	1		060b	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+563	043c	00	1		060b	0d	0d	3c	fb	nv‑BdIzc	05	05
+564	043c	00	0		060b	0d	0d	3c	fb	nv‑BdIzc	05	05
+564	043c	0d	0		060b	0d	0d	3c	fb	nv‑BdIzc	12	ff
+565	060b	99	1	STA Abs,Y	060b	0d	0d	3c	fb	nv‑BdIzc	12	0d
+565	060b	99	1	STA Abs,Y	060b	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+566	060c	00	1		060c	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+566	060c	00	1		060c	0d	0d	3c	fb	nv‑BdIzc	34	ff
+567	060d	05	1		060d	0d	0d	3c	fb	nv‑BdIzc	34	3c
+567	060d	05	1		060d	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+568	053c	00	1		060e	0d	0d	3c	fb	nv‑BdIzc	3c	ff
+568	053c	00	1		060e	0d	0d	3c	fb	nv‑BdIzc	06	06
+569	053c	00	0		060e	0d	0d	3c	fb	nv‑BdIzc	06	06
+569	053c	0d	0		060e	0d	0d	3c	fb	nv‑BdIzc	13	ff
+570	060e	c8	1	INY	060e	0d	0d	3c	fb	nv‑BdIzc	13	0d
+570	060e	c8	1	INY	060e	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+571	060f	98	1		060f	0d	0d	3c	fb	nv‑BdIzc	1a	1a
+571	060f	98	1		060f	0d	0d	3c	fb	nv‑BdIzc	34	ff
+572	060f	98	1	TYA	060f	0d	0d	3c	fb	nv‑BdIzc	34	3c
+572	060f	98	1	TYA	060f	0d	0d	3c	fb	nv‑BdIzc	3d	3d
+573	0610	c5	1		0610	0d	0d	3d	fb	nv‑BdIzc	3d	3d
+573	0610	c5	1		0610	0d	0d	3d	fb	nv‑BdIzc	7a	ff
+574	0610	c5	1	CMP zp	0610	3d	0d	3d	fb	nv‑BdIzc	7a	3d
+574	0610	c5	1	CMP zp	0610	3d	0d	3d	fb	nv‑BdIzc	7a	7a
+575	0611	10	1		0611	3d	0d	3d	fb	nv‑BdIzc	7a	7a
+575	0611	10	1		0611	3d	0d	3d	fb	nv‑BdIzc	f4	ff
+576	0010	e8	1		0612	3d	0d	3d	fb	nv‑BdIzc	f4	ff
+576	0010	e8	1		0612	3d	0d	3d	fb	nv‑BdIzc	0f	ff
+577	0612	d0	1	BNE 	0612	3d	0d	3d	fb	nv‑BdIzc	0f	3d
+577	0612	d0	1	BNE 	0612	3d	0d	3d	fb	nv‑BdIzc	55	55
+578	0613	04	1		0613	3d	0d	3d	fb	nv‑BdIzc	55	55
+578	0613	04	1		0613	3d	0d	3d	fb	nv‑BdIzc	aa	ff
+579	0614	c8	1		0614	3d	0d	3d	fb	nv‑BdIzc	aa	04
+579	0614	c8	1		0614	3d	0d	3d	fb	nv‑BdIzc	18	06
+580	0618	c8	1	INY	0618	3d	0d	3d	fb	nv‑BdIzc	18	06
+580	0618	c8	1	INY	0618	3d	0d	3d	fb	nv‑BdIzc	07	07
+581	0619	c8	1		0619	3d	0d	3d	fb	nv‑BdIzc	07	07
+581	0619	c8	1		0619	3d	0d	3d	fb	nv‑BdIzc	0e	ff
+582	0619	c8	1	INY	0619	3d	0d	3d	fb	nv‑BdIzc	0e	3d
+582	0619	c8	1	INY	0619	3d	0d	3d	fb	nv‑BdIzc	3e	3e

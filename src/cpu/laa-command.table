@@ -1,0 +1,86 @@
+ORA|09|zp|A:=A or {adr} |*    * |or with accumulator
+ORA|05|zpx|A:=A or {adr} |*    * |or with accumulator
+ORA|15 |zpy|A:=A or {adr} |*    * |or with accumulator
+ORA|01|izy|A:=A or {adr} |*    * |or with accumulator
+ORA|11|abs|A:=A or {adr} |*    * |or with accumulator
+ORA|0D|abx|A:=A or {adr} |*    * |or with accumulator
+ORA|1D |aby|A:=A or {adr} |*    * |or with accumulator
+ORA|19|ind|A:=A or {adr} |*    * |or with accumulator
+AND|29|zp|A:=A&{adr} |*    * |and (with accumulator)
+AND|25|zpx|A:=A&{adr} |*    * |and (with accumulator)
+AND|35 |zpy|A:=A&{adr} |*    * |and (with accumulator)
+AND|21|izy|A:=A&{adr} |*    * |and (with accumulator)
+AND|31|abs|A:=A&{adr} |*    * |and (with accumulator)
+AND|2D|abx|A:=A&{adr} |*    * |and (with accumulator)
+AND|3D |aby|A:=A&{adr} |*    * |and (with accumulator)
+AND|39|ind|A:=A&{adr} |*    * |and (with accumulator)
+EOR|49|zp|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|45|zpx|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|55 |zpy|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|41|izy|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|51|abs|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|4D|abx|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|5D |aby|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+EOR|59|ind|A:=A exor {adr} |*    * |exclusive or (with accumulator)
+ADC|69|zp|A:=A+{adr} |**   **|add with carry
+ADC|65|zpx|A:=A+{adr} |**   **|add with carry
+ADC|75 |zpy|A:=A+{adr} |**   **|add with carry
+ADC|61|izy|A:=A+{adr} |**   **|add with carry
+ADC|71|abs|A:=A+{adr} |**   **|add with carry
+ADC|6D|abx|A:=A+{adr} |**   **|add with carry
+ADC|7D |aby|A:=A+{adr} |**   **|add with carry
+ADC|79|ind|A:=A+{adr} |**   **|add with carry
+SBC|E9|zp|A:=A-{adr} |**   **|subtract with carry
+SBC|E5|zpx|A:=A-{adr} |**   **|subtract with carry
+SBC|F5 |zpy|A:=A-{adr} |**   **|subtract with carry
+SBC|E1|izy|A:=A-{adr} |**   **|subtract with carry
+SBC|F1|abs|A:=A-{adr} |**   **|subtract with carry
+SBC|ED|abx|A:=A-{adr} |**   **|subtract with carry
+SBC|FD |aby|A:=A-{adr} |**   **|subtract with carry
+SBC|F9|ind|A:=A-{adr} |**   **|subtract with carry
+CMP|C9|zp|A-{adr} |*    **|compare (with accumulator)
+CMP|C5|zpx|A-{adr} |*    **|compare (with accumulator)
+CMP|D5 |zpy|A-{adr} |*    **|compare (with accumulator)
+CMP|C1|izy|A-{adr} |*    **|compare (with accumulator)
+CMP|D1|abs|A-{adr} |*    **|compare (with accumulator)
+CMP|CD|abx|A-{adr} |*    **|compare (with accumulator)
+CMP|DD |aby|A-{adr} |*    **|compare (with accumulator)
+CMP|D9|ind|A-{adr} |*    **|compare (with accumulator)
+CPX|E0|zp|X-{adr} |*    **|compare with X
+CPX|E4|zpx|X-{adr} |*    **|compare with X
+CPX|EC|abx|X-{adr} |*    **|compare with X
+CPY|C0|zp|Y-{adr} |*    **|compare with Y
+CPY|C4|zpx|Y-{adr} |*    **|compare with Y
+CPY|CC|abx|Y-{adr} |*    **|compare with Y
+DEC|C6|zpx|{adr}:={adr}-1 |*    * |decrement
+DEC|D6 |zpy|{adr}:={adr}-1 |*    * |decrement
+DEC|CE|abx|{adr}:={adr}-1 |*    * |decrement
+DEC|DE |aby|{adr}:={adr}-1 |*    * |decrement
+DEX|CA|imm|X:=X-1 |*    * |decrement X
+DEY|88|imm|Y:=Y-1 |*    * |decrement Y
+INC|E6|zpx|{adr}:={adr}+1 |*    * |increment
+INC|F6 |zpy|{adr}:={adr}+1 |*    * |increment
+INC|EE|abx|{adr}:={adr}+1 |*    * |increment
+INC|FE |aby|{adr}:={adr}+1 |*    * |increment
+INX|E8|imm|X:=X+1 |*    * |increment X
+INY|C8|imm|Y:=Y+1 |*    * |increment Y
+ASL|0A|imm|{adr}:={adr}*2 |*    **|arithmetic shift left
+ASL|06|zpx|{adr}:={adr}*2 |*    **|arithmetic shift left
+ASL|16 |zpy|{adr}:={adr}*2 |*    **|arithmetic shift left
+ASL|0E|abx|{adr}:={adr}*2 |*    **|arithmetic shift left
+ASL|1E |aby|{adr}:={adr}*2 |*    **|arithmetic shift left
+ROL|2A|imm|{adr}:={adr}*2+C |*    **|rotate left
+ROL|26|zpx|{adr}:={adr}*2+C |*    **|rotate left
+ROL|36 |zpy|{adr}:={adr}*2+C |*    **|rotate left
+ROL|2E|abx|{adr}:={adr}*2+C |*    **|rotate left
+ROL|3E |aby|{adr}:={adr}*2+C |*    **|rotate left
+LSR|4A|imm|{adr}:={adr}/2 |*    **|logical shift right
+LSR|46|zpx|{adr}:={adr}/2 |*    **|logical shift right
+LSR|56 |zpy|{adr}:={adr}/2 |*    **|logical shift right
+LSR|4E|abx|{adr}:={adr}/2 |*    **|logical shift right
+LSR|5E |aby|{adr}:={adr}/2 |*    **|logical shift right
+ROR|6A|imm|{adr}:={adr}/2+C*128 |*    **|rotate right
+ROR|66|zpx|{adr}:={adr}/2+C*128 |*    **|rotate right
+ROR|76 |zpy|{adr}:={adr}/2+C*128 |*    **|rotate right
+ROR|6E|abx|{adr}:={adr}/2+C*128 |*    **|rotate right
+ROR|7E |aby|{adr}:={adr}/2+C*128 |*    **|rotate right

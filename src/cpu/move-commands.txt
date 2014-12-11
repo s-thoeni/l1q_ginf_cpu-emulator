@@ -1,0 +1,18 @@
+# Move commands:
+# Opcode	imp	imm	zp	zpx 	zpy	izx	izy	abs	abx 	aby	ind	rel	Function 	N	V	B	D	I	Z	C
+LDA	 	$A9	$A5	$B5 	 	$A1	$B1	$AD	$BD 	$B9	 	 	A:={adr} 	*	 	 	 	 	*	 
+STA	 	 	$85	$95 	 	$81	$91	$8D	$9D 	$99	 	 	{adr}:=A 	 	 	 	 	 	 	 
+LDX	 	$A2	$A6	  	$B6	 	 	$AE	  	$BE	 	 	X:={adr} 	*	 	 	 	 	*	 
+STX	 	 	$86	  	$96	 	 	$8E	  	 	 	 	{adr}:=X 	 	 	 	 	 	 	 
+LDY	 	$A0	$A4	$B4 	 	 	 	$AC	$BC 	 	 	 	Y:={adr} 	*	 	 	 	 	*	 
+STY	 	 	$84	$94 	 	 	 	$8C	  	 	 	 	{adr}:=Y 	 	 	 	 	 	 	 
+TAX	$AA	 	 	  	 	 	 	 	  	 	 	 	X:=A 	*	 	 	 	 	*	 
+TXA	$8A	 	 	  	 	 	 	 	  	 	 	 	A:=X 	*	 	 	 	 	*	 
+TAY	$A8	 	 	  	 	 	 	 	  	 	 	 	Y:=A 	*	 	 	 	 	*	 
+TYA	$98	 	 	  	 	 	 	 	  	 	 	 	A:=Y 	*	 	 	 	 	*	 
+TSX	$BA	 	 	  	 	 	 	 	  	 	 	 	X:=S 	*	 	 	 	 	*	 
+TXS	$9A	 	 	  	 	 	 	 	  	 	 	 	S:=X 	 	 	 	 	 	 	 
+PLA	$68	 	 	  	 	 	 	 	  	 	 	 	A:=+(S) 	*	 	 	 	 	*	 
+PHA	$48	 	 	  	 	 	 	 	  	 	 	 	(S)-:=A 	 	 	 	 	 	 	 
+PLP	$28	 	 	  	 	 	 	 	  	 	 	 	P:=+(S) 	*	*	 	*	*	*	*
+PHP	$08	 	 	  	 	 	 	 	  	 	 	 	(S)-:=P 	 	 	 	 	 	 	 

@@ -1,0 +1,1319 @@
+
+ADC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       ADC #$A5       $69      2     2   
+  Zero Page       ADC $A5        $65      2     3   
+  Zero Page,X     ADC $A5,X      $75      2     4   
+  Absolute        ADC $A5B6      $6D      3     4   
+  Absolute,X      ADC $A5B6,X    $7D      3     4+  
+  Absolute,Y      ADC $A5B6,Y    $79      3     4+  
+  (Indirect,X)    ADC ($A5,X)    $61      2     6   
+  (Indirect),Y    ADC ($A5),Y    $71      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Add Memory to A with Carry
+Flags Affected:	
+N	V	-	b	d	i	Z	C
+Logic:
+  t = A + M + P.C
+  P.V = (A.7!=t.7) ? 1:0
+  P.N = A.7
+  P.Z = (t==0) ? 1:0
+  IF (P.D)
+    t = bcd(A) + bcd(M) + P.C
+    P.C = (t>99) ? 1:0
+  ELSE
+    P.C = (t>255) ? 1:0
+  A = t & 0xFF                
+Notes:
+# 	 There is no add-without-carry instruction!
+# 	 As the result of ADC depends on the contents of the Carry Flag (P.C)
+# 	 When performing "single precision" (or "8 bit") arithmetic it is often necessary to ensure that the Carry Flag (P.C) is CLEARed with a CLC command before the ADC is executed ...to ensure that the Carry Flag (P.C) has no bearing on the result.
+# 	 CLEARing the Carry Flag (P.C) with a CLC command is normally necessary before the first stage of a "multiple precision" (or "more than 8 bit") addition.
+# 	 The action of ADC is dependant on the setting of Decimal Flag (P.D)
+ 
+AND	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       AND #$A5       $29      2     2   
+  Zero Page       AND $A5        $25      2     2   
+  Zero Page,X     AND $A5,X      $35      2     3   
+  Absolute        AND $A5B6      $2D      3     4   
+  Absolute,X      AND $A5B6,X    $3D      3     4+  
+  Absolute,Y      AND $A5B6,Y    $39      3     4+  
+  (Indirect,X)    AND ($A5,X)    $21      2     6   
+  (Indirect),Y    AND ($A5),Y    $31      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Bitwise-AND A with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = A & M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+ 	
+AND
+ 0 
+ 1 
+ 0 
+ 0 
+ 0 
+ 1 
+ 0 
+ 1 
+ 1 0 1 0 
+AND 
+ 1 1 0 0 
+---------
+ 
+ 1 0 0 0 
+ 
+ 
+ASL	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Accumulator     ASL A          $0A      1     2   
+  Zero Page       ASL $A5        $06      2     5   
+  Zero Page,X     ASL $A5,X      $16      2     6   
+  Absolute        ASL $A5B6      $0E      3     6   
+  Absolute,X      ASL $A5B6,X    $1E      3     7    
+Arithmetic Shift Left
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  P.C = B.7
+  B = (B << 1) & $FE
+  P.N = B.7
+  P.Z = (B==0) ? 1:0 
+Notes:
+ 	
+P.C
+<-
+b.7
+<-
+b.6
+<-
+b.5
+<-
+b.4
+<-
+b.3
+<-
+b.2
+<-
+b.1
+<-
+b.0
+<-
+0
+ 
+ Before:	
+ P.C = ?   B = 1 1 1 0  1 1 1 0 
+ After:	
+ P.C = 0   B = 1 1 0 1  1 1 0 0 
+# 	 In my experience, this is NOT an "arithmetic" shift.
+An Arithmetic shift normally preserves the Most Significant Bit (MSb) or "Sign bit" of the source value.
+ASL does NOT do this on the 6502.
+The 6502 places a copy of the sign from the result of a Logical Shift Left into the sigN Flag (P.N)
+# 	 This instruction would be better named as SLS (logical Shift Left and update Sign)
+ 
+BCC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BCC $A5        $90      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.C is CLEAR
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.C == 0) GOTO (PC+M) 
+Notes:
+# 	Carry Flag (P.C) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BCS	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BCS $A5        $B0      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.C is SET
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.C == 1) GOTO (PC+M) 
+Notes:
+# 	Carry Flag (P.C) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BEQ	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BEQ $A5        $F0      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.Z is SET
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.Z == 1) GOTO (PC+M) 
+Notes:
+# 	Zero Flag (P.Z) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BIT	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       BIT $A5        $24      2     3   
+  Absolute        BIT $A5B6      $2C      3     4    
+Test bits in A with M
+Flags Affected:	
+N	V	-	b	d	i	Z	c
+Logic:
+  t = A & M
+  P.N = t.7
+  P.V = t.6
+  P.Z = (t==0) ? 1:0 
+Notes:
+# 	 The BIT instuction does NOT affect ANY register values.
+# 	 To perform a Branch if a bit-4 is SET:
+ 	
+  LDA  0001'0000
+  BIT  Mem
+  BNE  lbl       
+# 	 To perform a Branch if a bit-4 is CLEAR:
+ 	
+  LDA  0001'0000
+  BIT  Mem
+  BEQ  lbl       
+# 	 Care should be taken to ensure that bits 6 & 7 are the most frequently tested.
+This way it is not necessary to preload A with the mask.
+
+ IF (   bPeek(Mem)&(1<<7)  ) GOTO lbl  
+  BIT  Mem 
+  BMI  lbl  
+ IF ( !(bPeek(Mem)&(1<<7)) ) GOTO lbl  
+  BIT  Mem 
+  BPL  lbl  
+ IF (   bPeek(Mem)&(1<<6)  ) GOTO lbl  
+  BIT  Mem 
+  BVS  lbl  
+ IF ( !(bPeek(Mem)&(1<<6)) ) GOTO lbl  
+  BIT  Mem 
+  BVC  lbl  
+ 
+BMI	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BMI $A5        $30      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.N is SET
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.N == 1) GOTO (PC+M) 
+Notes:
+# 	sigN Flag (P.N) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BNE	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BNE $A5        $D0      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.Z is CLEAR
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.Z == 0) GOTO (PC+M) 
+Notes:
+# 	Zero Flag (P.Z) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BPL	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BPL $A5        $10      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.N is CLEAR
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.N == 0) GOTO (PC+M) 
+Notes:
+# 	sigN Flag (P.N) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BRK	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         BRK            $00      1     7    
+Simulate Interrupt ReQuest (IRQ)
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  PC = PC + 1
+  bPoke(SP,PC.h)
+  SP = SP - 1
+  bPoke(SP,PC.l)
+  SP = SP - 1
+  bPoke(SP, (P|$10) )
+  SP = SP - 1
+  l = bPeek($FFFE)
+  h = bPeek($FFFF)<<8
+  PC = h|l             
+Notes:
+# 	 The copy of the Break Flag (P.B) in the CPU is NOT changed (remains CLEAR).
+# 	 The copy of the Break Flag (P.B) which is placed on the Stack is SET.
+# 	 This simulates an Interrupt in all but one respect:
+The Return Address that is placed on the Stack, is incremented by one.
+This means that the byte following a BRK command will NOT be executed upon Return.
+# 	 In the Interrupts section, there is code to correct the return address error, but the code is bulky.
+# 	 Another solution is to place a NOP after every BRK ...and then forget about this problem.
+ 
+BVC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BVC $A5        $50      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.V is CLEAR
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.V == 0) GOTO (PC+M) 
+Notes:
+# 	oVerflow Flag (P.V) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+BVS	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Relative        BVS $A5        $70      2     2++  
+++	Add 1 (one) T-State if a the branch occurs and the destination address is on the same Page
+Add 2 (two) T-States if a the branch occurs and the destination address is on a different Page
+Branch iff P.V is SET
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  if (P.V == 1) GOTO (PC+M) 
+Notes:
+# 	oVerflow Flag (P.V) gives full details on this flag, including a comprehensive list of instructions which modify its value.
+# 	 If a branch condition is false the Program Counter (PC) is not affected and program execution continues at the instruction immediately after the Branch instrucion.
+ 
+CLC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         CLC            $18      1     2    
+Clear Carry Flag (P.C)
+Flags Affected:	
+n	v	-	b	d	i	z	C
+Logic:
+  P.C = 0 
+Notes:
+# 	 For more information on P.C see: ADC, SBC and Carry Flag (P.C)
+ 
+CLD	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         CLD            $D8      1     2    
+Clear Decimal Flag (P.D)
+Flags Affected:	
+n	v	-	b	D	i	z	x
+Logic:
+  P.D = 0 
+Notes:
+# 	 When P.D is SET aritmetic instructions will operate as Binary Codec Decimal (BCD)
+# 	 When P.D is CLEAR aritmetic instructions will operate normally
+# 	 For more information on P.D see: ADC, SBC and Decimal Flag (P.D)
+ 
+CLI	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         CLI            $58      1     2    
+Clear Interrupt (disable) Flag (P.I)
+Flags Affected:	
+n	v	-	b	d	I	z	c
+Logic:
+  P.I = 0 
+Notes:
+# 	 When P.I is SET signals from the hardware IRQ pin will be IGNORED
+# 	 When P.I is CLEAR a signal from the hardware IRQ pin will cause program execution to continue from the IRQ vector, which is held little-endian at memory address #FFFE. Full details of this vector can be found in Memroy Map.
+# 	 For more information on P.I see: Interrupt (disable) Flag (P.I)
+ 
+CLV	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         CLV            $B8      1     2    
+Clear oVerflow Flag (P.V)
+Flags Affected:	
+n	V	-	b	d	i	z	c
+Logic:
+  P.V = 0 
+Notes:
+# 	 There is NO instruction to SET the oVerflow Flag (P.V)
+# 	P.V serves TWO purposes!
+Arithmetic overflow and bit-6 from a BIT instruction.
+# 	 For more information on P.V see: oVerflow Flag (P.V)
+ 
+CMP	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       CMP #$A5       $C9      2     2   
+  Zero Page       CMP $A5        $C5      2     3   
+  Zero Page,X     CMP $A5,X      $D5      2     4   
+  Absolute        CMP $A5B6      $CD      3     4   
+  Absolute,X      CMP $A5B6,X    $DD      3     4+  
+  Absolute,Y      CMP $A5B6,Y    $D9      3     4+  
+  (Indirect,X)    CMP ($A5,X)    $C1      2     6   
+  (Indirect),Y    CMP ($A5),Y    $D1      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Compare A with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  t = A - M
+  P.N = t.7
+  P.C = (A>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+Notes:
+# 	 A compare operation (CMP, CPX or CPY) is almost invariably followed by a Conditional Branch.
+ 
+ 	
+ 
+P.N
+P.C
+P.Z
+A < M
+1*
+0
+0
+A = M
+0
+1
+1
+A > M
+0*
+1
+0
+ 	Signed	Unsigned
+ IF (r <  M)  GOTO lbl  
+  CMP  M
+  BMI  lbl  
+  CMP  M
+  BCC  lbl  
+ IF (r <= M)  GOTO lbl  
+  CMP  M
+  BMI  lbl
+  BEQ  lbl 
+  CMP  M
+  BCC  lbl
+  BEQ  lbl 
+ IF (r == M)  GOTO lbl  
+         CMP  M
+         BEQ  lbl  
+ IF (r != M)  GOTO lbl  
+         CMP  M
+         BNE  lbl  
+ IF (r >= M)  GOTO lbl  
+  CMP  M
+  BPL  lbl  
+  CMP  M
+  BCS  lbl  
+ IF (r >  M)  GOTO lbl  
+  CMP  M
+  BEQ  +2
+  BPL  lbl 
+  CMP  M
+  BEQ  +2
+  BCS  lbl 
+ 	* Only valid when comparing signed numbers (in the range -128..127)
+# 	 "r" is any one of the three primary registers {A, X, Y}
+# 	 If A the intended register, then the CMP instruction must be used (as shown above).
+# 	 If X or Y is intended register, then the CPX or CPY instruction must be used (in place of the CMP instructions shown in the table above).
+ 
+CPX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       CPX #$A5       $E0      2     2   
+  Zero Page       CPX $A5        $E4      2     3   
+  Absolute        CPX $A5B6      $EC      3     4    
+Compare X with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  t = X - M
+  P.N = t.7
+  P.C = (X>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+Notes:
+# 	 See CMP instruction for Flag Table and Conditional Branch coding structures
+ 
+CPY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       CPY #$A5       $C0      2     2   
+  Zero Page       CPY $A5        $C4      2     3   
+  Absolute        CPY $A5B6      $CC      3     4    
+Compare Y with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  t = Y - M
+  P.N = t.7
+  P.C = (Y>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+Notes:
+# 	 See CMP instruction for Flag Table and Conditional Branch coding structures
+ 
+DEC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       DEC $A5        $C6      2     5   
+  Zero Page,X     DEC $A5,X      $D6      2     6   
+  Absolute        DEC $A5B6      $CE      3     6   
+  Absolute,X      DEC $A5B6,X    $DE      3     7    
+Decrement Memory by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  M = (M - 1) & $FF
+  P.N = M.7
+  P.Z = (M==0) ? 1:0 
+Notes:
+# 	 DEC does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+DEX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         DEX            $CA      1     2    
+Decrement X by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  X = X - 1
+  P.Z = (X==0) ? 1:0
+  P.N = X.7          
+Notes:
+# 	 DEX does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+DEY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         DEY            $88      1     2    
+Decrement Y by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  Y = Y - 1
+  P.Z = (Y==0) ? 1:0
+  P.N = Y.7          
+Notes:
+# 	 DEY does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+EOR	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       EOR #$A5       $49      2     2   
+  Zero Page       EOR $A5        $45      2     3   
+  Zero Page,X     EOR $A5,X      $55      2     4   
+  Absolute        EOR $A5B6      $4D      3     4   
+  Absolute,X      EOR $A5B6,X    $5D      3     4+  
+  Absolute,Y      EOR $A5B6,Y    $59      3     4+  
+  (Indirect,X)    EOR ($A5,X)    $41      2     6   
+  (Indirect),Y    EOR ($A5),Y    $51      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Bitwise-EXclusive-OR A with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = A ^ M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+# 	 Known as XOR on most other platforms ...Either way, it is an EXclusive OR ...one or the other, but not both.
+ 		
+ 	
+EOR
+ 0 
+ 1 
+ 0 
+ 0 
+ 1 
+ 1 
+ 1 
+ 0 
+ 1 0 1 0 
+EOR 
+ 1 1 0 0 
+---------
+ 
+ 0 1 1 0 
+ 
+ 
+INC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       INC $A5        $E6      2     5   
+  Zero Page,X     INC $A5,X      $F6      2     6   
+  Absolute        INC $A5B6      $EE      3     6   
+  Absolute,X      INC $A5B6,X    $FE      3     7    
+Increment Memory by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  M = (M + 1) & $FF
+  P.N = M.7
+  P.Z = (M==0) ? 1:0 
+Notes:
+# 	 INC does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+INX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         INX            $E8      1     2    
+Increment X by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  X = X + 1
+  P.Z = (X==0) ? 1:0
+  P.N = X.7          
+Notes:
+# 	 INX does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+INY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         INY            $C8      1     2    
+Increment Y by one
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  Y = Y + 1
+  P.Z = (Y==0) ? 1:0
+  P.N = Y.7          
+Notes:
+# 	 INY does NOT affect the Carry Flag (P.C) or oVerflow Flag (P.V)
+ 
+JMP	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Absolute        JMP $A5B6      $4C      3     3  
+  Indirect        JMP ($A5B6)    $6C      3     5   
+GOTO Address
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  PC = M 
+Notes:
+# 	 None
+ 
+JSR	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Absolute        JSR $A5B6      $20      3     6    
+Jump to SubRoutine
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  t = PC - 1
+  bPoke(SP,t.h)
+  SP = SP - 1
+  bPoke(SP,t.l)
+  SP = SP - 1
+  PC = $A5B6    
+Notes:
+# 	 The current Program Counter (PC) minus one (PC-1) is PUSHed onto the Stack, and then set to the specified value.
+# 	 A Subroutine is normally terminated with an RTS instruction.
+ 
+LDA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       LDA #$A5       $A9      2     2   
+  Zero Page       LDA $A5        $A5      2     3   
+  Zero Page,X     LDA $A5,X      $B5      2     4   
+  Absolute        LDA $A5B6      $AD      3     4   
+  Absolute,X      LDA $A5B6,X    $BD      3     4+  
+  Absolute,Y      LDA $A5B6,Y    $B9      3     4+  
+  (Indirect,X)    LDA ($A5,X)    $A1      2     6   
+  (Indirect),Y    LDA ($A5),Y    $B1      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Load A with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+# 	 None
+ 
+LDX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       LDX #$A5       $A2      2     2   
+  Zero Page       LDX $A5        $A6      2     3   
+  Zero Page,Y     LDX $A5,Y      $B6      2     4   
+  Absolute        LDX $A5B6      $AE      2     4   
+  Absolute,Y      LDX $A5B6,Y    $BE      2     4+  
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Load X with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  X = M
+  P.N = X.7
+  P.Z = (X==0) ? 1:0
+Notes:
+# 	 None
+ 
+LDY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       LDY #$A5       $A0      2     2   
+  Zero Page       LDY $A5        $A4      2     3   
+  Zero Page,X     LDY $A5,X      $B4      2     4   
+  Absolute        LDY $A5B6      $AC      2     4   
+  Absolute,X      LDY $A5B6,X    $BC      2     4+  
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Load Y with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  Y = M
+  P.N = Y.7
+  P.Z = (Y==0) ? 1:0
+Notes:
+# 	 None
+ 
+LSR	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Accumulator     LSR A          $4A      1     2   
+  Zero Page       LSR $A5        $46      2     5   
+  Zero Page,X     LSR $A5,X      $56      2     6   
+  Absolute        LSR $A5B6      $4E      3     6   
+  Absolute,X      LSR $A5B6,X    $5E      3     7    
+Logical Shift Right
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  P.N = 0
+  P.C = B.0
+  B = (B >> 1) & $7F
+  P.Z = (B==0) ? 1:0 
+Notes:
+ 	
+0
+->
+b.7
+->
+b.6
+->
+b.5
+->
+b.4
+->
+b.3
+->
+b.2
+->
+b.1
+->
+b.0
+->
+P.C
+ Before:	
+ B = 1 1 1 0  1 1 1 0   P.C = ? 
+ After:	
+ B = 0 1 1 1  0 1 1 1   P.C = 0 
+ 
+NOP	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         NOP            $EA      1     2    
+No OPeration
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  ~none~ 
+Notes:
+# 	 NOP achieves absolutely nothing.
+But when it is finished you are 1 T-State closer to your grave.
+# 	 NOP can be used to reserve space in a program for future code.
+# 	 Another frequent use of NOP is to patch out features of an existing program without the need for a full recompile.
+...The hackers favourite :)
+ 
+ORA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       ORA #$A5       $09      2     2   
+  Zero Page       ORA $A5        $05      2     2   
+  Zero Page,X     ORA $A5,X      $15      2     3   
+  Absolute        ORA $A5B6      $0D      3     4   
+  Absolute,X      ORA $A5B6,X    $1D      3     4+  
+  Absolute,Y      ORA $A5B6,Y    $19      3     4+  
+  (Indirect,X)    ORA ($A5,X)    $01      2     6   
+  (Indirect),Y    ORA ($A5),Y    $11      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Bitwise-OR A with Memory
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = A | M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+ 	
+OR 
+ 0 
+ 1 
+ 0 
+ 0 
+ 1 
+ 1 
+ 1 
+ 1 
+ 1 0 1 0 
+OR 
+ 1 1 0 0 
+---------
+ 
+ 1 1 1 0 
+ 
+ 
+PHA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         PHA            $48      1     3    
+PusH A onto Stack
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  bPoke(SP,A)
+  SP = SP - 1 
+Notes:
+# 	 You would be wise to take a little time to look at the notes for JSR and RTS and work out why the following code will crash your program:
+ 	
+         JSR   Subr
+         ...
+         ...
+ Subr:   PHA
+         RTS           
+ 
+PHP	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         PHP            $08      1     3    
+PusH P onto Stack
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  bPoke(SP,P)
+  SP = SP - 1 
+Notes:
+# 	 A copy of the current Processor Status Word (Flags) is PUSHed onto the Stack.
+This can be useful if you wish to preserve the current Flags state while a Subroutine is called.
+This system is utilised automatically by the processor during an Interrupt Subroutine.
+# 	 You may later copy the Flags back to P with the PLP instruction.
+# 	 You would be wise to take a little time to look at the notes for JSR and RTS and work out why the following code will crash your program:
+ 	
+         JSR   Subr
+         ...
+         ...
+ Subr:   PHP
+         RTS           
+ 
+PLA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         PLA            $68      1     4    
+PulL from Stack to A
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  SP = SP + 1
+  A = bPeek(SP)
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+# 	 You would be wise to take a little time to look at the notes for JSR and RTS and work out why the following code will crash your program:
+ 	
+         JSR   Subr
+         ...
+         ...
+ Subr:   PLA
+         RTS           
+ 
+PLP	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         PLP            $28      1     4    
+PulL from Stack to P
+Flags Affected:	
+N	V	-	B	D	I	Z	C
+Logic:
+  SP = SP + 1
+  P = bPeek(SP)  
+Notes:
+# 	 The entry on the top of the Stack is placed in the Processor Status Word (Flags).
+# 	 By definition this instruction can affect any or all Flags to known states.
+# 	 This instruction is normally only used to
+# 	 Reverse a PHA instruction
+# 	 Test for the Break Flag (P.B) during an Interrupt SubRoutine.
+# 	 You would be wise to take a little time to look at the notes for JSR and RTS and work out why the following code will crash your program:
+ 	
+         JSR   Subr
+         ...
+         ...
+ Subr:   PLA
+         RTS           
+ 
+ROL	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Accumulator     ROL A          $2A      1    2   
+  Zero Page       ROL $A5        $26      2    5   
+  Zero Page,X     ROL $A5,X      $36      2    6   
+  Absolute        ROL $A5B6      $2E      3    6   
+  Absolute,X      ROL $A5B6,X    $3E      3    7    
+ROtate Left
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  t = B.7
+  B = (B << 1) & $FE
+  B = B | P.C
+  P.C = t
+  P.Z = (B==0) ? 1:0
+  P.N = B.7          
+Notes:
+ 	
+,-<-
+P.C
+<-
+b.7
+<-
+b.6
+<-
+b.5
+<-
+b.4
+<-
+b.3
+<-
+b.2
+<-
+b.1
+<-
+b.0
+-<-.
+`->-
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->-'
+ Before:	
+ P.C = 1   B = 0 1 1 0  1 1 1 0 
+ After:	
+ P.C = 0   B = 1 1 0 1  1 1 0 1 
+ 
+ROR	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Accumulator     ROR A          $6A      1     2   
+  Zero Page       ROR $A5        $66      2     5   
+  Zero Page,X     ROR $A5,X      $76      2     6   
+  Absolute        ROR $A5B6      $6E      3     6   
+  Absolute,X      ROR $A5B6,X    $7E      3     7    
+ROtate Right
+Flags Affected:	
+N	v	-	b	d	i	Z	C
+Logic:
+  t = B.0
+  B = (B >> 1) & $7F
+  B = B | ((P.C) ? $80:$00)
+  P.C = t
+  P.Z = (B==0) ? 1:0
+  P.N = B.7                 
+Notes:
+ 	
+,->-
+b.7
+->
+b.6
+->
+b.5
+->
+b.4
+->
+b.3
+->
+b.2
+->
+b.1
+->
+b.0
+->
+P.C
+->-.
+`-<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+<-
+-<-'
+ Before:	
+ B = 0 1 1 0  1 1 1 0   P.C = 1 
+ After:	
+ B = 1 0 1 1  0 1 1 1   P.C = 0 
+ 
+RTI	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         RTI            $40      1     6    
+ReTurn from Interrupt
+Flags Affected:	
+N	V	-	B	D	I	Z	C
+Logic:
+  SP = SP - 1
+  P = bPeek(SP)
+  SP = SP - 1
+  l = bPeek(SP)
+  SP = SP - 1
+  h = bPeek(SP)<<8
+  PC = h|l         
+Notes:
+# 	Interrupts are normally triggered externally by hardware devices via the IRQ pin on the 6502 itself.
+# 	 Note that unlike RTS, RTI does NOT add one to the destination before placing it in the Program Counter (PC)
+# 	 An Interrupt may be simulated by a BRK instruction
+**WARNING** Make sure you read up on BRK before using it - it's weird!
+ 
+RTS	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         RTS            $60      1     6    
+ReTurn from Subroutine
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  SP = SP + 1
+  l = bPeek(SP)
+  SP = SP + 1
+  h = bPeek(SP)<<8
+  PC = (h|l) +1    
+Notes:
+# 	 A word (16-bits) is PulLed from the top of the Stack; this value is then incremented by one and placed in the Program Counter (PC).
+# 	 RTS is normally used to return from a Subroutine called by the JSR instruction.
+This way they act as the classic "GOSUB" and "RETURN" statements.
+ 
+SBC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Immediate       SBC #$A5       $E9      2     2   
+  Zero Page       SBC $A5        $E5      2     3   
+  Zero Page,X     SBC $A5,X      $F5      2     4   
+  Absolute        SBC $A5B6      $ED      3     4   
+  Absolute,X      SBC $A5B6,X    $FD      3     4+  
+  Absolute,Y      SBC $A5B6,Y    $F9      3     4+  
+  (Indirect,X)    SBC ($A5,X)    $E1      2     6   
+  (Indirect),Y    SBC ($A5),Y    $F1      2     5+   
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Subtract Memory from A with Borrow
+Flags Affected:	
+N	V	-	b	d	i	Z	C
+Logic:
+  IF (P.D)
+    t = bcd(A) - bcd(M) - !P.C
+    P.V = (t>99 OR t<0) ? 1:0
+  ELSE
+    t = A - M - !P.C
+    P.V = (t>127 OR t<-128) ? 1:0
+  P.C = (t>=0) ? 1:0
+  P.N = t.7
+  P.Z = (t==0) ? 1:0
+  A = t & 0xFF                    
+Notes:
+# 	 There is no subtract-without-carry instruction!
+# 	 As the result of SBC depends on the contents of the Carry Flag (P.C)
+When performing "single precision" (or "8 bit") arithmetic it is often necessary to ensure that the Carry Flag (P.C) is SET with an SEC command before the subtraction is executed.
+The upshot of the SEC is to ensure that the Carry Flag (P.C) has no bearing on the result.
+# 	 SETting the Carry Flag (P.C) with an SEC command is normally necessary before the first stage of a "multiple precision" (or "more than 8 bit") subtraction.
+# 	 The action of SBC is dependant on the setting of Decimal Flag (P.D)
+ 
+SEC	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         SEC            $38      1     2    
+Set Carry flag (P.C)
+Flags Affected:	
+n	v	-	b	d	i	z	C
+Logic:
+  P.C = 1 
+Notes:
+# 	 For more information on P.C see: ADC, SBC and Carry Flag (P.C)
+ 
+SED	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         CLD            $F8      1     2    
+Set Binary Coded Decimal Flag (P.D)
+Flags Affected:	
+n	v	-	b	D	i	z	x
+Logic:
+  P.D = 1 
+Notes:
+# 	 When P.D is SET aritmetic instructions will operate as Binary Codec Decimal (BCD)
+# 	 When P.D is CLEAR aritmetic instructions will operate normally
+# 	 For more information on P.D see: ADC, SBC and Decimal Flag (P.D)
+ 
+SEI	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         SEI            $78      1     2    
+Set Interrupt (disable) Flag (P.I)
+Flags Affected:	
+n	v	-	b	d	I	z	c
+Logic:
+  P.I = 1 
+Notes:
+# 	 When P.I is SET signals from the hardware IRQ pin will be IGNORED
+# 	 When P.I is CLEAR a signal from the hardware IRQ pin will cause program execution to continue from the IRQ vector, which is held little-endian at memory address #FFFE. Full details of this vector can be found in Memroy Map.
+# 	 For more information on P.I see: Interrupt (disable) Flag (P.I)
+ 
+STA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       STA $A5        $85      2     3   
+  Zero Page,X     STA $A5,X      $95      2     4   
+  Absolute        STA $A5B6      $8D      3     4   
+  Absolute,X      STA $A5B6,X    $9D      3     5   
+  Absolute,Y      STA $A5B6,Y    $99      3     5   
+  (Indirect,X)    STA ($A5,X)    $81      2     6   
+  (Indirect),Y    STA ($A5),Y    $91      2     6    
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Store A in Memory
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  M = A 
+Notes:
+# 	 None
+ 
+STX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       STX $A5        $86      2     3   
+  Zero Page,Y     STX $A5,Y      $96      2     4   
+  Absolute        STX $A5B6      $8E      3     4    
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Store X in Memory
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  M = X  
+Notes:
+# 	 None
+ 
+STY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Zero Page       STY $A5        $84      2     3   
+  Zero Page,X     STY $A5,X      $94      2     4   
+  Absolute        STY $A5B6      $8C      3     4    
++  Add 1 (one) T-State if a Page Boundary is crossed
+
+Store Y in Memory
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  M = Y  
+Notes:
+# 	 None
+ 
+TAX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TAX            $AA      1     2    
+Transfer A to X
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  X = A
+  P.N = X.7
+  P.Z = (X==0) ? 1:0 
+Notes:
+# 	 None
+ 
+TAY	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TAY            $A8      1     2    
+Transfer A to Y
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  Y = A
+  P.N = Y.7
+  P.Z = (Y==0) ? 1:0 
+Notes:
+# 	 None
+ 
+TSX	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TSX            $BA      1     2    
+Transfer Stack Pointer to X
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  X = SP
+  P.N = X.7
+  P.Z = (X==0) ? 1:0 
+Notes:
+# 	 TSX is the only way to retrieve the current position of the Stack Pointer.
+# 	 The Stack can ONLY exist in Page 1 of memory (addresses $01'00..$01'FF)
+ 
+TXA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TXA            $8A      1     2    
+Transfer X to A
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = X
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+# 	 None
+ 
+TXS	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TXS            $9A      1     2    
+Transfer X to Stack Pointer
+Flags Affected:	
+n	v	-	b	d	i	z	c
+Logic:
+  SP = X 
+Notes:
+# 	 Although many instructions modify the value of the Stack Pointer, TXS is the only way to set it to a specified value.
+# 	 The Stack can ONLY exist in Page 1 of memory (addresses $01'00..$01'FF)
+ 
+TYA	
+
+  Address Mode    Syntax        Opcode  I-Len  T-Cnt  
+
+  Implied         TYA            $98      1     2    
+Transfer Y to A
+Flags Affected:	
+N	v	-	b	d	i	Z	c
+Logic:
+  A = Y
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+Notes:
+# 	 None
+
+
+ 

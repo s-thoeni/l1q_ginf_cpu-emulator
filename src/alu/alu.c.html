@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>alu.c</title>
+<meta name="generator" content="emacs 24.3.1; htmlfontify 0.21" />
+<style type="text/css"><!-- 
+body { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #839496;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.default   { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #839496;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.default a { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #839496;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.constant   { color: #2aa198;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.constant a { color: #2aa198;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.function-name   { color: #268bd2;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.function-name a { color: #268bd2;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.variable-name   { color: #268bd2;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.variable-name a { color: #268bd2;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.keyword   { color: #859900;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.keyword a { color: #859900;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.type   { color: #b58900;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.type a { color: #b58900;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.string   { color: #2aa198;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.string a { color: #2aa198;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.preprocessor   { color: #cb4b16;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.preprocessor a { color: #cb4b16;  font-style: normal;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.comment   { color: #586e75;  font-style: italic;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.comment a { color: #586e75;  font-style: italic;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+span.comment-delimiter   { color: #586e75;  font-style: italic;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: none; }
+span.comment-delimiter a { color: #586e75;  font-style: italic;  font-weight: 500;  font-family: DejaVu Sans Mono;  font-stretch: normal;  background: #002b36;  font-size: 10pt;  text-decoration: underline; }
+ --></style>
+
+    <script type="text/javascript"><!--
+  // this function is needed to work around
+  // a bug in IE related to element attributes
+  function hasClass(obj)
+  {
+      var result = false;
+      if (obj.getAttributeNode("class") != null)
+      {
+          result = obj.getAttributeNode("class").value;
+      }
+      return result;
+  }
+
+  function stripe(id)
+  {
+      // the flag we'll use to keep track of
+      // whether the current row is odd or even
+      var even = false;
+
+      // if arguments are provided to specify the colors
+      // of the even & odd rows, then use the them;
+      // otherwise use the following defaults:
+      var evenColor = arguments[1] ? arguments[1] : "#fff";
+      var oddColor  = arguments[2] ? arguments[2] : "#ddd";
+
+      // obtain a reference to the desired table
+      // if no such table exists, abort
+      var table = document.getElementById(id);
+      if (! table) { return; }
+
+      // by definition, tables can have more than one tbody
+      // element, so we'll have to get the list of child
+      // &lt;tbody&gt;s
+      var tbodies = table.getElementsByTagName("tbody");
+
+      // and iterate through them...
+      for (var h = 0; h < tbodies.length; h++)
+      {
+          // find all the &lt;tr&gt; elements...
+          var trs = tbodies[h].getElementsByTagName("tr");
+
+          // ... and iterate through them
+          for (var i = 0; i < trs.length; i++)
+          {
+              // avoid rows that have a class attribute
+              // or backgroundColor style
+              if (! hasClass(trs[i]) &&
+                  ! trs[i].style.backgroundColor)
+              {
+                  // get all the cells in this row...
+                  var tds = trs[i].getElementsByTagName("td");
+
+                  // and iterate through them...
+                  for (var j = 0; j < tds.length; j++)
+                  {
+                      var mytd = tds[j];
+
+                      // avoid cells that have a class attribute
+                      // or backgroundColor style
+                      if (! hasClass(mytd) &&
+                          ! mytd.style.backgroundColor)
+                      {
+                          mytd.style.backgroundColor =
+                            even ? evenColor : oddColor;
+                      }
+                  }
+              }
+              // flip from odd to even, or vice-versa
+              even =  ! even;
+          }
+      }
+  }
+
+  function toggle_invis( name )
+  {
+      var filter =
+        { acceptNode:
+          function( node )
+          { var classname = node.id;
+            if( classname )
+            { var classbase = classname.substr( 0, name.length );
+              if( classbase == name ) { return NodeFilter.FILTER_ACCEPT; } }
+            return NodeFilter.FILTER_SKIP; } };
+      var walker = document.createTreeWalker( document.body           ,
+                                              NodeFilter.SHOW_ELEMENT ,
+                                              filter                  ,
+                                              false                   );
+      while( walker.nextNode() )
+      {
+          var e = walker.currentNode;
+          if( e.style.display == "none" ) { e.style.display = "inline"; }
+          else                            { e.style.display = "none";   }
+      }
+  }
+--> </script>
+  </head>
+  <body onload="stripe('index'); return true;">
+
+<pre><span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">
+</span><span class="comment">   alu.c 
+</span><span class="comment">   - 21.11.05/BHO1
+</span><span class="comment">   bho1 29.12.2006
+</span><span class="comment">   bho1 6.12.2007
+</span><span class="comment">   bho1 30.11.2007 - clean up
+</span><span class="comment">   bho1 24.11.2009 - assembler instruction
+</span><span class="comment">   bho1 3.12.2009 - replaced adder with full_adder
+</span><span class="comment">   bho1 20.7.2011 - rewrite: minimize global vars, ALU-operations are modeled with fct taking in/out register as parameter
+</span><span class="comment">   bho1 6.11.2011 - rewrite flags: adding flags as functional parameter. Now alu is truly a function
+</span><span class="comment">   bho1 26.11.2012 - remove bit declaration from op_alu_asl and op_alu_ror as they are unused (this may change later)
+</span><span class="comment">   bho1 20.9.2014 cleaned
+</span><span class="comment">   thons1 21.11.2014 - Adding full-adder
+</span><span class="comment">   thons1 24.11.2014 - Implementing ADD, ADC, SUB, SBC
+</span><span class="comment">   thons1 27.11.2014 - Implementing bitwise operations
+</span><span class="comment">   thons1 29.11.2014 - General rework and cleanup. Ready for rollout
+</span><span class="comment">   
+</span><span class="comment">   GPL applies
+</span><span class="comment">
+</span><span class="comment">   --&gt;&gt; Stefan Thöni  &lt;&lt;--
+</span><span class="comment-delimiter">*/</span>
+
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&lt;string.h&gt;</span>
+
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&quot;alu.h&quot;</span>
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&quot;alu-opcodes.h&quot;</span>
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&quot;register.h&quot;</span>
+<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="string">&quot;flags.h&quot;</span>
+<span class="type">i</span><span class="type">nt</span> <span class="keyword">cons</span><span class="keyword">t</span> <span class="variable-name">max_mue_memory</span> = 100;
+
+<span class="type">cha</span><span class="type">r</span> <span class="variable-name">mue_memory</span>[100]= <span class="string">&quot;100 Byte - this memory is at your disposal&quot;</span>; <span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">mue-memory </span><span class="comment-delimiter">*/</span>
+<span class="type">c</span><span class="type">ha</span><span class="type">r</span>* <span class="variable-name">m</span> = mue_memory;
+
+<span class="type">unsigned</span> <span class="type">in</span><span class="type">t</span> <span class="variable-name">c</span> = 0; 	<span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">carry bit address    </span><span class="comment-delimiter">*/</span>
+<span class="type">u</span><span class="type">nsigned</span> <span class="type">in</span><span class="type">t</span> <span class="variable-name">s</span> = 1;	    <span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">sum bit address      </span><span class="comment-delimiter">*/</span>
+<span class="type">u</span><span class="type">nsigned</span> <span class="type">in</span><span class="type">t</span> <span class="variable-name">c_in</span> = 2;	<span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">carry in bit address </span><span class="comment-delimiter">*/</span>
+
+<span class="comment-delimiter">/*</span><span class="comment">
+</span><span class="comment">  testet ob alle bits im akkumulator auf null gesetzt sind.
+</span><span class="comment">  Falls ja wird 1 returniert, ansonsten 0
+</span><span class="comment-delimiter">*/</span>
+<span class="type">i</span><span class="type">n</span><span class="type">t</span> <span class="function-name">zero_test</span>(<span class="type">char</span> <span class="variable-name">accumulator</span>[]){
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span>(i=0;accumulator[i]!=<span class="string">'\0'</span>; i++){
+	<span class="keyword">if</span>(accumulator[i]!=<span class="string">'0'</span>)		
+	  <span class="keyword">return</span> 0;
+  }
+
+  <span class="keyword">return</span> 1;
+}
+
+<span class="type">voi</span><span class="type">d</span> <span class="function-name">zsflagging</span>(<span class="type">char</span>* <span class="variable-name">flags</span>,<span class="type">char</span> *<span class="variable-name">acc</span>){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">Zeroflag
+</span>  <span class="keyword">i</span><span class="keyword">f</span>(zero_test(acc))
+	setZeroflag(flags);
+  <span class="keyword">else</span>
+	clearZeroflag(flags);
+
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">Signflag
+</span>  <span class="keyword">i</span><span class="keyword">f</span>(acc[0] == <span class="string">'1'</span>)
+	setSignflag(flags);
+  <span class="keyword">else</span>
+	clearSignflag(flags);
+}
+
+<span class="type">voi</span><span class="type">d</span> <span class="function-name">carryflagging</span>(<span class="type">char</span>* <span class="variable-name">flags</span>){
+  <span class="keyword">if</span>(m[c] == <span class="string">'0'</span>)
+    clearCarryflag(flags);
+  <span class="keyword">else</span>
+    setCarryflag(flags);
+}
+
+<span class="type">voi</span><span class="type">d</span> <span class="function-name">coflagging</span>(<span class="type">char</span>* <span class="variable-name">flags</span>, <span class="type">char</span> *<span class="variable-name">accumulator</span>, <span class="type">char</span> *<span class="variable-name">rega</span>, <span class="type">char</span> *<span class="variable-name">regb</span>){
+  carryflagging(flags);
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">Overflowflag
+</span>  <span class="keyword">i</span><span class="keyword">f</span>(rega[0] == regb[0] &amp;&amp; regb[0] != accumulator[0])
+    setOverflowflag(flags);
+  <span class="keyword">else</span>
+    clearOverflowflag(flags);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  logic and of 2 bit
+  returns a AND b
+</span><span class="comment"> </span><span class="comment-delimiter">*/</span>
+<span class="type">c</span><span class="type">ha</span><span class="type">r</span> <span class="function-name">and</span>(<span class="type">char</span> <span class="variable-name">a</span>, <span class="type">char</span> <span class="variable-name">b</span>){
+  <span class="keyword">return</span> (a == <span class="string">'1'</span> &amp;&amp; b == <span class="string">'1'</span>) ? <span class="string">'1'</span> : <span class="string">'0'</span>;
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  logic or of 2 bit
+  returns a OR b
+ </span><span class="comment-delimiter">*/</span>
+<span class="type">c</span><span class="type">ha</span><span class="type">r</span> <span class="function-name">or</span>(<span class="type">char</span> <span class="variable-name">a</span>, <span class="type">char</span> <span class="variable-name">b</span>){
+  <span class="keyword">return</span> (a ==<span class="string">'1'</span> || b ==<span class="string">'1'</span> ) ? <span class="string">'1'</span> : <span class="string">'0'</span>;
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  logic xor of 2 bit
+  returns a XOR b
+ </span><span class="comment-delimiter">*/</span>
+<span class="type">c</span><span class="type">ha</span><span class="type">r</span> <span class="function-name">xor</span>(<span class="type">char</span> <span class="variable-name">a</span>, <span class="type">char</span> <span class="variable-name">b</span>){
+  <span class="keyword">return</span> ((a ==<span class="string">'1'</span> || b ==<span class="string">'1'</span>) &amp;&amp; a != b ) ? <span class="string">'1'</span> : <span class="string">'0'</span>;
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Halfadder: addiert zwei character p,q und schreibt in 
+  den Mue-memory das summen-bit und das carry-bit.
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">half_adder</span>(<span class="type">char</span> <span class="variable-name">p</span>, <span class="type">char</span> <span class="variable-name">q</span>){
+  m[s] = xor(p,q);
+  m[c] = and(p,q);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Reset ALU
+  resets registers and calls alu_op_reset 
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_reset</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">clear rega, regb, accumulator, flags </span><span class="comment-delimiter">*/</span>
+  <span class="keyword">f</span><span class="keyword">or</span>(i=0; i&lt;REG_WIDTH; i++)
+    m[i] = rega[i] = regb[i] = accumulator[i] = flags[i] = <span class="string">'0'</span>;
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">
+   void adder(char pbit, char qbit, char cbit)
+   Adder oder auch Fulladder:
+   Nimmt zwei character bits und ein carry-character-bit
+   und schreibt das Resultat (summe, carry) in den Mue-speicher
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">full_adder</span>(<span class="type">char</span> <span class="variable-name">pbit</span>, <span class="type">char</span> <span class="variable-name">qbit</span>, <span class="type">char</span> <span class="variable-name">cbit</span>){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">half add p and q
+</span>  half_adder(pbit,qbit);
+  <span class="type">cha</span><span class="type">r</span> <span class="variable-name">c1</span> = m[c];
+
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">Half-add sum(q,p) and carry in
+</span>  half_adder(m[s], cbit);
+
+  m[c] = or(m[c], c1);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Invertieren der Character Bits im Register reg
+  one_complement(char reg[]) --&gt; NOT(reg)
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">one_complement</span>(<span class="type">char</span> <span class="variable-name">reg</span>[]){
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = 0; i&lt; REG_WIDTH; i++) {
+    reg[i] = (reg[i] == <span class="string">'0'</span>) ? <span class="string">'1'</span> : <span class="string">'0'</span>;
+  }
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Das zweier-Komplement des Registers reg wird in reg geschrieben
+  reg := K2(reg)
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">two_complement</span>(<span class="type">char</span> <span class="variable-name">reg</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">Build one complement
+</span>  one_complement(reg);
+  
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">add 1 to reg: Iterate from behind, set 1 to 0 and 0 to 1. exit on first 0 
+</span>  <span class="type">i</span><span class="type">n</span><span class="type">t</span> <span class="variable-name">i</span>; 
+  <span class="keyword">for</span> (i = REG_WIDTH-1; i&gt;=0; i--) {
+    <span class="keyword">if</span>(reg[i] == <span class="string">'1'</span>){
+      reg[i] = <span class="string">'0'</span>;
+    }<span class="keyword">else</span>{
+      reg[i] = <span class="string">'1'</span>;
+	<span class="keyword">break</span>;
+    }
+  }
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Generic add function.
+  For op_code ADD set carry argument = '0'
+  For op_code ADC set carry argument = currentCarry
+ </span><span class="comment-delimiter">*/</span>
+<span class="keyword">s</span><span class="keyword">tatic</span> <span class="type">voi</span><span class="type">d</span> <span class="function-name">add_generic</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[], <span class="type">char</span> <span class="variable-name">carry</span>){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">Set carry flag to whatever it is supposed to be
+</span>  m[c] = carry;
+
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = REG_WIDTH-1; i&gt;=0; i--) {
+    <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">This printf is for debugging purposes only!
+</span>    <span class="comment-delimiter">// </span><span class="comment">printf(&quot;Adding: %c,%c and carry:%c\n&quot;, rega[i], regb[i], m[c]);
+</span>    full_adder(rega[i], regb[i], m[c]);
+    
+    <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">Store the sum from full_adder
+</span>    accumulator[i] = m[s];
+  }
+
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">Now we can set the flags:
+</span>  zsflagging(flags, accumulator);
+  coflagging(flags, accumulator, rega, regb);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Die Werte in Register rega und Register regb werden addiert, das
+  wird in Register accumulator geschrieben. Die Flags cflag, 
+  oflag, zflag und sflag werden entsprechend gesetzt
+  
+  accumulator := rega + regb
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_add</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">Call the generic add function with ignored carry
+</span>  add_generic(rega,regb,accumulator,flags,<span class="string">'0'</span>);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+
+  ALU_OP_ADD_WITH_CARRY
+  
+  Die Werte des carry-Flags und der Register rega und
+  Register regb werden addiert, das
+  Resultat wird in Register accumulator geschrieben. Die Flags cflag, 
+  oflag, zflag und sflag werden entsprechend gesetzt
+  
+  accumulator := rega + regb + carry-flag
+
+  FIXME: Not referenced in alu-main.c
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_adc</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">Call the generic add function this time with carry!
+</span>  add_generic(rega, regb, accumulator, flags, getCarryflag(flags));
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Die Werte in Register rega und Register regb werden subtrahiert, das
+  Resultat wird in Register accumulator geschrieben. Die Flags cflag, 
+  oflag, zflag und sflag werden entsprechend gesetzt
+  
+  accumulator := rega - regb = rega + NOT(regb) + 1
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_sub</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  one_complement(regb);
+  
+  add_generic(rega,regb,accumulator,flags, <span class="string">'1'</span>);
+
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">We want the positive representation of b in our register!
+</span>  one_complement(regb);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  subtract with carry
+  SBC
+  accumulator =
+  a - b - !c  =
+  a - b - !c + 256 =
+  a - b - (1-c) + 256 =
+  a + (255 - b) + c =
+  a + !b + c
+  accumulator := rega - regb = rega + NOT(regb) +carryflag
+
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_sbc</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  one_complement(regb);
+  
+  add_generic(rega,regb,accumulator,flags, getCarryflag(flags));
+  
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">We want the positive representation of b in our register!
+</span>  one_complement(regb);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Applies any logical function (char funname(char,char);) to rega and regb
+  Result is stored in accu and z,s flags are set accoringly
+ 
+ </span><span class="comment-delimiter">*/</span>
+<span class="keyword">s</span><span class="keyword">tatic</span> <span class="type">voi</span><span class="type">d</span> <span class="function-name">apply_logic</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[], <span class="type">char</span> (*<span class="variable-name">logFn</span>)(<span class="type">char</span>,<span class="type">char</span>)){
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = 0; i &lt; REG_WIDTH; i++) {
+    accumulator[i] = (*logFn)(rega[i], regb[i]);
+  }
+  zsflagging(flags, accumulator);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Die Werte in Register rega und Register regb werden logisch geANDet, 
+  das Resultat wird in Register accumulator geschrieben. 
+  Die Flags zflag und sflag werden entsprechend gesetzt
+  
+  accumulator := rega AND regb
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_and</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  apply_logic(rega,regb,accumulator,flags,&amp;and);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  accumulator := rega OR regb
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_or</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  apply_logic(rega,regb,accumulator,flags,&amp;or);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  accumulator := rega OR regb
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_xor</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  apply_logic(rega,regb,accumulator,flags,xor);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Die Werte in Register rega und Register regb werden logisch geORt, 
+  das Resultat wird in Register accumulator geschrieben. 
+  Die Werte in Register rega und Register regb werden logisch geXORt,
+  das Resultat wird in Register accumulator geschrieben. 
+  Einer-Komplement von Register rega
+  rega := not(rega)
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_not_a</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  one_complement(rega);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">* </span><span class="comment">Einer Komplement von Register regb </span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_not_b</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  one_complement(regb);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Negation von Register rega 
+  rega := -rega
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_neg_a</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  two_complement(rega);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Negation von Register regb 
+  regb := -regb
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_neg_b</span>(<span class="type">char</span> <span class="variable-name">rega</span>[], <span class="type">char</span> <span class="variable-name">regb</span>[], <span class="type">char</span> <span class="variable-name">accumulator</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  two_complement(regb);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+        bit -&gt;   7                           0
+               +---+---+---+---+---+---+---+---+
+ carryflag &lt;-- |   |   |   |   |   |   |   |   |  &lt;-- 0
+               +---+---+---+---+---+---+---+---+
+
+	       arithmetic shift left
+  asl
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_asl</span>(<span class="type">char</span> <span class="variable-name">regina</span>[], <span class="type">char</span> <span class="variable-name">reginb</span>[], <span class="type">char</span> <span class="variable-name">regouta</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">First bit will always be '0':
+</span>  regouta[REG_WIDTH-1] = <span class="string">'0'</span>;
+  m[c] = regina[0];
+
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = REG_WIDTH-1; i &gt; 0; i--) {
+      regouta[i-1] = regina[i];
+  }
+
+  carryflagging(flags);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  logical shift right
+  lsr
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_lsr</span>(<span class="type">char</span> <span class="variable-name">regina</span>[], <span class="type">char</span> <span class="variable-name">reginb</span>[], <span class="type">char</span> <span class="variable-name">regouta</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/ </span><span class="comment">First bit will always be '0':
+</span>  regouta[0] = <span class="string">'0'</span>;
+
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = 0; i &lt;= REG_WIDTH-2; i++) {
+      regouta[i+1] = regina[i];
+  }
+}
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  rotate 
+  rotate left
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_rol</span>(<span class="type">char</span> <span class="variable-name">regina</span>[], <span class="type">char</span> <span class="variable-name">reginb</span>[], <span class="type">char</span> <span class="variable-name">regouta</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  regouta[REG_WIDTH-1] = getCarryflag(flags);
+  m[c] = regina[0];
+
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = REG_WIDTH -1; i&gt;0; i--) {
+      regouta[i-1] = regina[i];
+  }
+
+  carryflagging(flags);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  rotate 
+  rotate right
+  Move each of the bits in  A one place to the right. Bit 7 is filled with the current value of the carry flag whilst the old bit 0 becomes the new carry flag value.
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">op_alu_ror</span>(<span class="type">char</span> <span class="variable-name">regina</span>[], <span class="type">char</span> <span class="variable-name">reginb</span>[], <span class="type">char</span> <span class="variable-name">regouta</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="comment-delimiter">/</span><span class="comment-delimiter">/</span><span class="comment">First bit equals last bit from regina
+</span>  regouta[0] = getCarryflag(flags);
+  m[c] = regina[REG_WIDTH -1];
+  
+  <span class="type">in</span><span class="type">t</span> <span class="variable-name">i</span>;
+  <span class="keyword">for</span> (i = 0; i &lt; REG_WIDTH-1; i++) {
+      regouta[i+1] = regina[i];
+  }
+  
+  carryflagging(flags);
+}
+
+<span class="comment-delimiter">/</span><span class="comment-delimiter">*</span><span class="comment">
+  Procedural approach to ALU with side-effect:
+  Needed register are already alocated and may be modified
+  mainly a switchboard
+  
+  alu_fct(int opcode, char reg_in_a[], char reg_in_b[], char reg_out_accu[], char flags[])
+</span><span class="comment-delimiter">*/</span>
+<span class="type">v</span><span class="type">oi</span><span class="type">d</span> <span class="function-name">alu</span>(<span class="type">unsigned</span> <span class="type">int</span> <span class="variable-name">alu_opcode</span>, <span class="type">char</span> <span class="variable-name">reg_in_a</span>[], <span class="type">char</span> <span class="variable-name">reg_in_b</span>[], <span class="type">char</span> <span class="variable-name">reg_out_accu</span>[], <span class="type">char</span> <span class="variable-name">flags</span>[]){
+  <span class="type">cha</span><span class="type">r</span> <span class="variable-name">dummyflags</span>[9] = <span class="string">&quot;00000000&quot;</span>;  
+  <span class="keyword">switch</span> ( alu_opcode ){
+  <span class="keyword">case</span> ALU_OP_ADD :
+    op_add(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_ADD_WITH_CARRY :
+    op_adc(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_SUB :
+    op_sub(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_SUB_WITH_CARRY :
+    op_alu_sbc(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_AND :
+    op_and(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_OR:
+    op_or(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_XOR :
+    op_xor(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_NEG_A :
+    op_neg_a(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_NEG_B :
+    op_neg_b(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_NOT_A :
+    op_not_a(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_NOT_B :
+    op_not_b(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_ASL :
+    op_alu_asl(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_LSR :
+    op_alu_lsr(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_ROL: 
+    op_alu_rol(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_ROR: 
+    op_alu_ror(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">case</span> ALU_OP_RESET :
+    op_alu_reset(reg_in_a, reg_in_b, reg_out_accu, (flags==<span class="constant">NULL</span>)?dummyflags:flags);
+    <span class="keyword">break</span>;
+  <span class="keyword">default</span>:
+    printf(<span class="string">&quot;ALU(%i): Invalide operation %i selected&quot;</span>, alu_opcode, alu_opcode); 
+  }	
+}
+</pre>
+
+ </body>
+</html>

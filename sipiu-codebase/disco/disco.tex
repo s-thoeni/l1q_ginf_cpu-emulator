@@ -1,0 +1,373 @@
+\documentclass[a4paper]{article} 
+
+% deutsche Sonderzeichen benutzen
+%\usepackage[german]{babel}
+
+% wegen deutschen Umlauten
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+% hat was mit Abstaenden zu tun
+\frenchspacing
+
+\usepackage{moreverb}
+%urls with hyperref
+\usepackage{hyperref}
+
+\usepackage{listings}
+
+\usepackage{tikz}
+%\tikzstyle{every picure}+=[remember picture]
+%\tikzstyle{na} = [baseline=-.5ex]
+
+
+%urls with url
+\usepackage{url}
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+%multiple rows in table
+\usepackage{multirow}
+\usepackage{latexsym}
+% absolut positioning of text with
+% env: \begin{textblock}{<size>}( hpos , vpos )
+
+\usepackage[absolute]{textpos}
+\setlength{\TPHorizModule}{30mm}
+\setlength{\TPVertModule}{\TPHorizModule}
+\textblockorigin{10mm}{10mm}
+% start everything near the top-left corner
+\setlength{\parindent}{0pt}
+
+\usepackage{paralist}
+
+\usepackage{fancyhdr}                     %Declares the package fancyhdr
+\pagestyle{fancy}                         %Forces the page to use the fancy template
+\fancyhead[L]{Exercises}
+\fancyhead[R]{11.11.2011}
+\fancyfoot[L]{\tiny{Version 0.3/10.11.2011}}
+\fancyfoot[R]{\tiny{bho1@bfh.ch}}
+
+%%
+%%
+\begin{document} 
+
+
+% \begin{textblock}{300}(10, 20)
+%  Sozialkompetenz
+%  Methodenkompetenz
+%  Selbstkompetenz
+%  Fashkompetenz
+% \end{textblock}
+
+\center{{\Large \textsc{\underline{6502 Assembler}}}}
+\setlength\parskip{0.5cm}
+\begin{itemize}
+\item[\textbf{Goals:}] Run first 6502 assembler program in c64 simulator. Edit code. Assemble Code. Read Opcode table. scan c64-kernal. Code 6502 assembler with different addressing modes
+\item[\textbf{Knowledge assembled:}] Addressing modes, immediate adr. mode, absolute adr. mode, absolut with index adr. mode, implicit adr. mode
+\item[\textbf{Exercises Intro:}] Work through \texttt{simple-hello-world}, \texttt{hello-world}, \texttt{count10} in this order.
+
+\begin{enumerate}
+\item Read, assemble, run program
+\item Code assembler-code into 6502 binary code (by hand)
+\item compare your code with the generated code
+\end{enumerate}
+
+\item[\textbf{Exercise First Steps:}] 
+Modify programs to use other registers, less register, less code etc.
+\item[\textbf{Exercise First Problem:}] Write a program which counts the character of a string \texttt{x} and prints ''\texttt{<x> has <number of x> character}''.
+\item[\textbf{Exercise Addressing Modes:}] Try rewriting sum.asm by replacing the instructions using absolute with index addressing modes with other addressing modes
+ \end{itemize} 
+
+% \lstset{emph={%  Adjust any special keywords
+%     printf%
+%     },emphstyle={\color{red}\bfseries}%
+% }%
+\lstdefinelanguage{doxygen}%
+{
+    alsoletter={\\,[,],/,*,\,},%
+    morekeywords=[2]{/**,*/,\\brief,%
+                     \\LDX,\\STA,\\param[in],\\param[out]}
+}
+\lstdefinelanguage{6502} {
+    otherkeywords = {:=},
+    keywords = {asl, sta, inx, txa, cmp, bne, jmp, iny, inx, lda, rts, adc, sbc},
+    keywordstyle=\textbf,
+    commentstyle=\itshape
+}
+% \begin{lstlisting}%[language=[AVR]Assembler]
+% ; void x(int myvar0, char* b) {}
+
+% ; 16-bit addition
+% .include "HelloWorld.asm"
+% add r16, r0
+% adc r17, r1
+% \end{lstlisting}
+
+\newpage
+
+{\scriptsize
+ \begin{lstlisting}[language=6502,escapechar=@]
+
+; DISCO DISCO
+; submitted by Anonymous
+ 
+start:@\tikz[remember picture] \coordinate(startlabel);@
+ inx
+ txa
+ sta $200, y
+ sta $300, y
+ sta $400, y
+ sta $500, y
+ iny
+ tya
+ cmp 16
+ @\tikz[remember picture] \coordinate (bnedo);@bne do
+ iny
+ jmp start@\tikz[remember picture] \coordinate(startjump1);@
+@\tikz[remember picture] \coordinate (do);@do:
+ iny
+ iny
+ iny
+ iny
+jmp start@\tikz[baseline=0.5ex,remember picture] \coordinate (startjump2);@
+
+ \end{lstlisting}%$
+}
+
+{\scriptsize
+ \begin{lstlisting}[language=6502,escapechar=@]
+
+                 * = 0600
+0600   E8         INX
+0601   8A         TXA
+0602   99 00 02   STA $0200,Y
+0605   99 00 03   STA $0300,Y
+0608   99 00 04   STA $0400,Y
+060B   99 00 05   STA $0500,Y
+060E   C8         INY
+060F   98         TYA
+0610   C5 10      CMP $10
+0612   D0 04      BNE $0618
+0614   C8         INY
+0615   4C 00 06   JMP $0600
+0618   C8         INY
+0619   C8         INY
+061A   C8         INY
+061B   C8         INY
+061C   4C 00 06   JMP $0600
+061F              .END
+ \end{lstlisting}%$
+}
+
+\begin{figure}[h]
+  \centering
+\begin{minipage}[t]{.45\columnwidth} 
+%  \includegraphics[scale=0.5]{/home/olivier/hti/ginf/pics/MOS6526.pdf}
+\begin{tikzpicture}[remember picture,overlay] 
+%\draw (startjump2) rectangle ++(.17cm,.3cm);
+%\draw (startjump2) circle (0.1cm);
+%\draw[step=.10cm,gray,very thin] (0,-2) grid (8,0); 
+%\draw[step=1cm,gray] (0,-2) grid (8,0); 
+%\node[circle,fill=blue!50,opacity=0.5] (n2) at (3,-0.30) {}; 
+%\draw[red] (2.8,-0.1) rectangle (3.8, -0.5); 
+%\draw [->,very thick,green,opacity=.5] (startjump2) node [right,text=red, opacity=1] {main method} to [out control=+(90:1)] (startlabel); 
+%\path[->, red, thick] (startjump1) edge [bend left] (startlabel);
+\draw[->, black, thick] (startjump2) .. controls +(7,-8) and +(15,1).. (startlabel);
+\draw[->, black, thick] (startjump1) .. controls +(7,-5) and +(5,1).. (startlabel);
+
+\draw[->, black, thick] (bnedo) .. controls +(-3,3) and +(-3,-3).. (do);
+\end{tikzpicture}
+\end{minipage}\hfill
+  \caption{disassembler code Tabelle ab Adresse $0x0600$  }
+  \label{fig:cia}
+
+\end{figure}
+
+\newpage
+\begin{figure}[h]
+  \centering
+\begin{minipage}[t]{.45\columnwidth} 
+%  \includegraphics[scale=0.5]{/home/olivier/hti/ginf/pics/MOS6526.pdf}
+\end{minipage}\hfill
+\begin{minipage}[t]{.45\columnwidth} 
+{\scriptsize
+\begin{tabular}{lllp{4cm}}
+Pin 1 &GND &-- &GrouND: Masse (0V) \\
+Pin 2-9 &PA0-PA7  &I/O  &Parallel port a signals. Bidirectional parallel port. \\
+Pin 10-17 &PB0-PB7  &I/O &Parallel port b signals. Bidirectional parallel port. \\
+Pin 18 &PC &O &Handshake output. A low pulse is generated after a read or write on port b. \\
+Pin 19 &TOD &I &Time od day clock input. Programmable 50hz or 60hz. \\
+Pin 20 &Vcc &--&Supply voltage: +5V DC \\
+Pin 21 &$\overline{\mathrm{IRQ}}$ &O &Interrupt output to microprocessor input IRQ. \\
+Pin 22 &R/$\overline{\mathrm{W}}$ &I &READ/WRITE input \\
+Pin 23 &$\overline{\mathrm{CS}}$ &I &Chip select input. A low pulse will activate CIA. \\
+Pin 24 &$\overline{\mathrm{Flag}}$ &I &Negative edge sensitive interrupt input. Can be used as a handshake line for either parallel port. \\
+Pin 25 &{\o}2 &I &clock input connected to processor \\
+Pin 26-33 &DB0-DB7  &I/O &Bidirectional data bus. Connects to processor data bus. \\
+Pin 34 &$\overline{\mathrm{RES}}$ &I &Low active reset input. Initializes CIA. \\
+Pin 35-38  &RS0-RS3  &I &Register select inputs. Used to select all internal registers for communications with the parallel ports, time of day clock and serial port (SP). \\
+Pin 39 &SP &I/O &Serial Port bidirectional connection. An internal shift register converts microprocessor parallel data into serial data, and vice versa. \\
+Pin 40 &CNT &I &Count input. Internal timers can count pulses applied to this input. Can be used for frequency dependant operations.
+
+\end{tabular}
+}
+\end{minipage}
+  \caption{Pin layout des CIA (Complex Interface Adapter) Chip für C64}
+  \label{fig:cia}
+\end{figure}
+
+{\scriptsize
+\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+\hline 
+ & & CIA 1 Port B (\$DC01)  & Joy 2  & & & & & & \\
+ \hline 
+ & & PB7  & PB6  & PB5  & PB4  & PB3  & PB2  & PB1  & PB0  \\
+ \hline 
+
+ \begin{center}
+ CIA1 Port A (\$DC00)   
+ \end{center}
+  & PA7  & STOP  & Q  & C=  & SPACE  & 2  & CTRL  & $<$-  & 1  \\
+ \hline 
+ PA6  & /  & \^{}  & =  & RSHIFT & HOME  & ;  & *  & \^A{\pounds}  & \\
+ \hline 
+ PA5  & ,  & @  & :  & .  & -  & L  & P  & +  & \\
+ \hline 
+ PA4  & N  & O  & K  & M  & 0  & J  & I  & 9  & Fire  \\
+ \hline 
+ PA3  & V  & U  & H  & B  & 8  & G  & Y  & 7  & Right  \\
+ \hline 
+ PA2  & X  & T  & F  & C  & 6  & D  & R  & 5  & Left  \\
+ \hline 
+ PA1  & LSHIFT & E  & S  & Z  & 4  & A  & W  & 3  & Down  \\
+ \hline 
+ PA0  &CRSR DN & F5  & F3  & F1  & F7  &CRSR RT  & RETURN  & DELETE  & Up  \\
+ \hline 
+ Joy 1  & & & & & Fire  & Right  & Left  & Down  & Up  \\
+ \hline 
+
+\end{tabular}
+}
+\end{document}
+
+
+
+% \lstdefinelanguage[AVR]{Assembler}%
+% {morekeywords={%
+% % Arithmetic and Logic Instructions
+% add,adc,adiw,sub,subi,sbc,sbci,sbiw,and,andi,or,or i,eor,
+% com,neg,sbr,cbr,inc,dec,tst,clr,ser,mul,muls,mulsu ,fmul,
+% fmulsu,des,%
+% % Branch Instructions
+% rjmp,ijmp,eijmp,jmp,rcall,icall,eicall,call,ret,re ti,cpse,
+% cp,cpc,cpi,sbrc,sbrs,sbic,sbis,brbs,brbc,breq,brne ,brcs,
+% brcc,brsh,brlo,brmi,brpl,brge,brlt,brhs,brhc,brts, brtc,
+% brvs,brvc,brie,brid,%
+% % Data Transfer Instructions
+% mov,movw,ldi,lds,ld,ldd,sts,st,std,lpm,elpm,spm,in ,out,
+% push,pop,xch,las,lac,lat,lsl,lsr,rol,ror,asr,swap, bset,
+% bclr,sbi,cbi,bst,bld,sec,clc,sen,cln,sez,clz,sei,c li,
+% ses,cls,sev,clv,set,clt,seh,clh,%
+% % MCU Control Instructions
+% break,nop,sleep,wdr},%
+% morekeywords=[2]{%
+% % AVR Assembler Directives
+% .byte,.cseg,.db,.def,.device,.dseg,.dw,.endm,.endm acro,%
+% .equ,.eseg,.exit,.include,.list,.listmac,.macro,.n olist,%
+% .org,.set},%
+% alsoletter={.,0,1,2,3,4,5,6,7,8,9},%
+% alsodigit={x,X,b,B,\$},%
+% morekeywords=[3]{%
+% % AVR General Purpose Registers
+% r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14, %
+% r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r2 7,%
+% r28,r29,r30,r31},%
+% sensitive=f,%
+% morestring=[b]",%
+% morestring=[b]',%
+% morecomment=[l];%
+% }[keywords,comments,strings]
+% \lstloadlanguages{[AVR]Assembler}
+% \lstset{%
+% language=[AVR]Assembler,%
+% frame=single,%
+% breaklines=true,%
+% basicstyle=\ttfamily,%
+% commentstyle=\itshape\color{avrcom},%
+% stringstyle=\color{avrstr},%
+% keywordstyle=[1]\bfseries\color{avrcmd},%
+% keywordstyle=[2]\bfseries\color{avrascmd},%
+% keywordstyle=[3]\color{avrreg},%
+% literate={,}{,}1}
+% %}
+
+% \lstdefinelanguage[6502]{Assembler}%
+%   {morekeywords={%
+%     % Arithmetic and Logic Instructions
+%     asl,add,adc,adiw,sub,subi,sbc,sbci,sbiw,and,andi,or,ori,eor,
+%     com,neg,sbr,cbr,inc,dec,tst,clr,ser,mul,muls,mulsu,fmul,
+%     fmulsu,des,%
+%     % Branch Instructions
+%     rjmp,ijmp,eijmp,jmp,rcall,icall,eicall,call,ret,reti,cpse,
+%     cp,cpc,cpi,sbrc,sbrs,sbic,sbis,brbs,brbc,breq,brne,brcs,
+%     brcc,brsh,brlo,brmi,brpl,brge,brlt,brhs,brhc,brts,brtc,
+%     brvs,brvc,brie,brid,%
+%     % Data Transfer Instructions
+%     sta,lda,ldi,lds,ld,ldd,sts,st,std,lpm,elpm,spm,in,out,
+%     push,pop,xch,las,lac,lat,lsl,lsr,rol,ror,asr,swap,bset,
+%     bclr,sbi,cbi,bst,bld,sec,clc,sen,cln,sez,clz,sei,cli,
+%     ses,cls,sev,clv,set,clt,seh,clh,%
+%     % MCU Control Instructions
+%     break,nop,sleep,wdr},%
+%     morekeywords=[2]{%
+%     % AVR Assembler Directives
+%     .byte,.cseg,.db,.def,.device,.dseg,.dw,.endm,.endmacro,%
+%     .equ,.eseg,.exit,.include,.list,.listmac,.macro,.nolist,%
+%     .org,.set},%
+%     alsoletter={#,.,0,1,2,3,4,5,6,7,8,9},%
+%     alsodigit={x,X,b,B,\$},%
+%   morekeywords=[3]{%
+%     % AVR General Purpose Registers
+%     X,Y,r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,%
+%     r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r27,%
+%     r28,r29,r30,r31},%
+%   sensitive=f,%
+%   morestring=[b]",%
+%   morestring=[b]',%
+%   morecomment=[l];%
+%   }[keywords,comments,strings]
+% \lstloadlanguages{[6502]Assembler}
+
+
+% \lstset{%
+%   language=[6502]Assembler,
+%   frame=single,
+%   breaklines=true,
+%   basicstyle=\ttfamily,
+%   commentstyle=\itshape\color{avrcom},
+%   stringstyle=\color{avrstr},
+%   keywordstyle=[1]\bfseries\color{black},
+%   keywordstyle=[2]\bfseries\color{green},
+%   keywordstyle=[3]\color{avrreg},
+%   literate={,}{,}1}
+
+
+% lstset{
+%     language=C,
+%     basicstyle=\small\sffamily,
+%     frame=tblr,
+%     backgroundcolor=\color{yellow!20},
+%     numbers=left,
+%     xleftmargin=5.0ex,
+%     numberstyle=\tiny,
+%     numbersep=4pt,
+%     stepnumber=2,
+%     %showstringspaces=false,
+%     keywordstyle=\color{blue}\bfseries
+%     }

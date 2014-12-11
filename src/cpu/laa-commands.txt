@@ -1,0 +1,20 @@
+# Logical and arithmetic commands:
+# Opcode	imp	imm	zp	zpx	zpy	izx	izy	abs	abx	aby	ind	rel	Function 	N	V	B	D	I	Z	C
+ORA	 	$09	$05	$15 	 	$01	$11	$0D	$1D 	$19	 	 	A:=A or {adr} 	*	 	 	 	 	*	 
+AND	 	$29	$25	$35 	 	$21	$31	$2D	$3D 	$39	 	 	A:=A&{adr} 	*	 	 	 	 	*	 
+EOR	 	$49	$45	$55 	 	$41	$51	$4D	$5D 	$59	 	 	A:=A exor {adr} 	*	 	 	 	 	*	 
+ADC	 	$69	$65	$75 	 	$61	$71	$6D	$7D 	$79	 	 	A:=A+{adr} 	*	*	 	 	 	*	*
+SBC	 	$E9	$E5	$F5 	 	$E1	$F1	$ED	$FD 	$F9	 	 	A:=A-{adr} 	*	*	 	 	 	*	*
+CMP	 	$C9	$C5	$D5 	 	$C1	$D1	$CD	$DD 	$D9	 	 	A-{adr} 	*	 	 	 	 	*	*
+CPX	 	$E0	$E4	  	 	 	 	$EC	  	 	 	 	X-{adr} 	*	 	 	 	 	*	*
+CPY	 	$C0	$C4	  	 	 	 	$CC	  	 	 	 	Y-{adr} 	*	 	 	 	 	*	*
+DEC	 	 	$C6	$D6 	 	 	 	$CE	$DE 	 	 	 	{adr}:={adr}-1 	*	 	 	 	 	*	 
+DEX	$CA	 	 	  	 	 	 	 	  	 	 	 	X:=X-1 	*	 	 	 	 	*	 
+DEY	$88	 	 	  	 	 	 	 	  	 	 	 	Y:=Y-1 	*	 	 	 	 	*	 
+INC	 	 	$E6	$F6 	 	 	 	$EE	$FE 	 	 	 	{adr}:={adr}+1 	*	 	 	 	 	*	 
+INX	$E8	 	 	  	 	 	 	 	  	 	 	 	X:=X+1 	*	 	 	 	 	*	 
+INY	$C8	 	 	  	 	 	 	 	  	 	 	 	Y:=Y+1 	*	 	 	 	 	*	 
+ASL	$0A	 	$06	$16 	 	 	 	$0E	$1E 	 	 	 	{adr}:={adr}*2 	*	 	 	 	 	*	*
+ROL	$2A	 	$26	$36 	 	 	 	$2E	$3E 	 	 	 	{adr}:={adr}*2+C 	*	 	 	 	 	*	*
+LSR	$4A	 	$46	$56 	 	 	 	$4E	$5E 	 	 	 	{adr}:={adr}/2 	*	 	 	 	 	*	*
+ROR	$6A	 	$66	$76 	 	 	 	$6E	$7E 	 	 	 	{adr}:={adr}/2+C*128 	*	 	 	 	 	*	*

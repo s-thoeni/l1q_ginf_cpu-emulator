@@ -1,0 +1,11 @@
+sudo apt-get install manpages-posix-dev
+
+# cpu monitor with curser interface
+sudo apt-get install ncurses-dev
+
+# graphic card uses SDL
+sudo apt-get install libsdl1.2-dev
+
+# make graphic-main
+# with parser uses
+apt-get install libreadline5-dev

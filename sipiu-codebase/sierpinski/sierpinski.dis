@@ -1,0 +1,96 @@
+                * = 0600
+0600   A2 00      LDX #$00
+0602   A0 00      LDY #$00
+0604   A5 FE      LDA $FE
+0606   29 03      AND #$03
+0608   C9 03      CMP #$03
+060A   D0 03      BNE $060F
+060C   4C 04 06   JMP $0604
+060F   48         PHA
+0610   0A         ASL A
+0611   0A         ASL A
+0612   0A         ASL A
+0613   85 F3      STA $F3
+0615   68         PLA
+0616   29 01      AND #$01
+0618   0A         ASL A
+0619   0A         ASL A
+061A   0A         ASL A
+061B   0A         ASL A
+061C   85 F4      STA $F4
+061E   8A         TXA
+061F   4A         LSR A
+0620   65 F3      ADC $F3
+0622   AA         TAX
+0623   98         TYA
+0624   4A         LSR A
+0625   65 F4      ADC $F4
+0627   A8         TAY
+0628   20 2E 06   JSR $062E
+062B   4C 04 06   JMP $0604
+062E   48         PHA
+062F   8A         TXA
+0630   48         PHA
+0631   98         TYA
+0632   48         PHA
+0633   48         PHA
+0634   48         PHA
+0635   86 F2      STX $F2
+0637   A4 F2      LDY $F2
+0639   A9 00      LDA #$00
+063B   85 F0      STA $F0
+063D   A9 02      LDA #$02
+063F   85 F1      STA $F1
+0641   A9 00      LDA #$00
+0643   68         PLA
+0644   29 07      AND #$07
+0646   0A         ASL A
+0647   0A         ASL A
+0648   0A         ASL A
+0649   0A         ASL A
+064A   0A         ASL A
+064B   18         CLC
+064C   65 F0      ADC $F0
+064E   85 F0      STA $F0
+0650   90 02      BCC $0654
+0652   E6 F1      INC $F1
+0654   18         CLC
+0655   68         PLA
+0656   29 18      AND #$18
+0658   4A         LSR A
+0659   4A         LSR A
+065A   4A         LSR A
+065B   65 F1      ADC $F1
+065D   85 F1      STA $F1
+065F   18         CLC
+0660   98         TYA
+0661   65 F0      ADC $F0
+0663   65 F1      ADC $F1
+0665   A9 01      LDA #$01
+0667   20 72 06   JSR $0672
+066A   91 F0      STA ($F0),Y
+066C   68         PLA
+066D   A8         TAY
+066E   68         PLA
+066F   AA         TAX
+0670   68         PLA
+0671   60         RTS
+0672   B1 F0      LDA ($F0),Y
+0674   C9 00      CMP #$00
+0676   D0 03      BNE $067B
+0678   A9 0B      LDA #$0B
+067A   60         RTS
+067B   C9 0B      CMP #$0B
+067D   D0 03      BNE $0682
+067F   A9 0C      LDA #$0C
+0681   60         RTS
+0682   C9 0C      CMP #$0C
+0684   D0 03      BNE $0689
+0686   A9 0F      LDA #$0F
+0688   60         RTS
+0689   C9 0F      CMP #$0F
+068B   D0 03      BNE $0690
+068D   A9 01      LDA #$01
+068F   60         RTS
+0690   60         RTS
+0691              .END

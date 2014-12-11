@@ -1,0 +1,24 @@
+# Jump/Flag commands:
+# Opcode	imp	imm	zp	zpx 	zpy	izx	izy	abs	abx 	aby	ind	rel	Function 	N	V	B	D	I	Z	C
+BPL	 	 	 	  	 	 	 	 	  	 	 	$10	branch on N=0 	 	 	 	 	 	 	 
+BMI	 	 	 	  	 	 	 	 	  	 	 	$30	branch on N=1 	 	 	 	 	 	 	 
+BVC	 	 	 	  	 	 	 	 	  	 	 	$50	branch on V=0 	 	 	 	 	 	 	 
+BVS	 	 	 	  	 	 	 	 	  	 	 	$70	branch on V=1 	 	 	 	 	 	 	 
+BCC	 	 	 	  	 	 	 	 	  	 	 	$90	branch on C=0 	 	 	 	 	 	 	 
+BCS	 	 	 	  	 	 	 	 	  	 	 	$B0	branch on C=1 	 	 	 	 	 	 	 
+BNE	 	 	 	  	 	 	 	 	  	 	 	$D0	branch on Z=0 	 	 	 	 	 	 	 
+BEQ	 	 	 	  	 	 	 	 	  	 	 	$F0	branch on Z=1 	 	 	 	 	 	 	 
+BRK	$00	 	 	  	 	 	 	 	  	 	 	 	(S)-=:PC,P PC:=($FFFE) 	 	 	1	 	1	 	 
+RTI	$40	 	 	  	 	 	 	 	  	 	 	 	P,PC:=+(S) 	*	*	 	*	*	*	*
+JSR	 	 	 	  	 	 	 	$20	  	 	 	 	(S)-:=PC PC:={adr} 	 	 	 	 	 	 	 
+RTS	$60	 	 	  	 	 	 	 	  	 	 	 	PC:=+(S) 	 	 	 	 	 	 	 
+JMP	 	 	 	  	 	 	 	$4C	  	 	$6C	 	PC:={adr} 	 	 	 	 	 	 	 
+BIT	 	 	$24	  	 	 	 	$2C	  	 	 	 	N:=b7 V:=b6 Z:=A&{adr} 	*	*	 	 	 	*	 
+CLC	$18	 	 	  	 	 	 	 	  	 	 	 	C:=0 	 	 	 	 	 	 	0
+SEC	$38	 	 	  	 	 	 	 	  	 	 	 	C:=1 	 	 	 	 	 	 	1
+CLD	$D8	 	 	  	 	 	 	 	  	 	 	 	D:=0 	 	 	 	0	 	 	 
+SED	$F8	 	 	  	 	 	 	 	  	 	 	 	D:=1 	 	 	 	1	 	 	 
+CLI	$58	 	 	  	 	 	 	 	  	 	 	 	I:=0 	 	 	 	 	0	 	 
+SEI	$78	 	 	  	 	 	 	 	  	 	 	 	I:=1 	 	 	 	 	1	 	 
+CLV	$B8	 	 	  	 	 	 	 	  	 	 	 	V:=0 	 	0	 	 	 	 	 
+NOP	$EA	 	 	  	 	 	 	 	  	 	 	 	  	 	 	 	 	 	 	 

@@ -1,0 +1,1660 @@
+0600   A2 00      LDX #$00
+0602   BD 1E 0E   LDA $0E1E,X
+0605   C9 FF      CMP #$FF
+0607   F0 0A      BEQ $0613
+0609   9D E0 04   STA $04E0,X
+060C   9D E0 05   STA $05E0,X
+060F   E8         INX
+0610   4C 02 06   JMP $0602
+0613   20 BD 06   JSR $06BD
+0616   A9 00      LDA #$00
+0618   85 10      STA $10
+061A   85 11      STA $11
+061C   20 D0 06   JSR $06D0
+061F   20 4E 06   JSR $064E
+0622   20 28 06   JSR $0628
+0625   4C 1C 06   JMP $061C
+0628   A2 00      LDX #$00
+062A   BD 21 05   LDA $0521,X
+062D   9D 20 05   STA $0520,X
+0630   BD 41 05   LDA $0541,X
+0633   9D 40 05   STA $0540,X
+0636   BD 61 05   LDA $0561,X
+0639   9D 60 05   STA $0560,X
+063C   BD 81 05   LDA $0581,X
+063F   9D 80 05   STA $0580,X
+0642   BD A1 05   LDA $05A1,X
+0645   9D A0 05   STA $05A0,X
+0648   E8         INX
+0649   E0 1F      CPX #$1F
+064B   D0 DD      BNE $062A
+064D   60         RTS
+064E   A5 10      LDA $10
+0650   C9 00      CMP #$00
+0652   D0 0D      BNE $0661
+0654   E6 11      INC $11
+0656   A6 11      LDX $11
+0658   BD F2 09   LDA $09F2,X
+065B   AA         TAX
+065C   BD D6 09   LDA $09D6,X
+065F   85 10      STA $10
+0661   C6 10      DEC $10
+0663   A6 11      LDX $11
+0665   BD F2 09   LDA $09F2,X
+0668   C9 FF      CMP #$FF
+066A   D0 07      BNE $0673
+066C   A9 00      LDA #$00
+066E   85 10      STA $10
+0670   85 11      STA $11
+0672   60         RTS
+0673   0A         ASL A
+0674   AA         TAX
+0675   BD 66 0A   LDA $0A66,X
+0678   85 02      STA $02
+067A   E8         INX
+067B   BD 66 0A   LDA $0A66,X
+067E   85 03      STA $03
+0680   A9 9E      LDA #$9E
+0682   18         CLC
+0683   65 02      ADC $02
+0685   85 00      STA $00
+0687   A9 0A      LDA #$0A
+0689   65 03      ADC $03
+068B   85 01      STA $01
+068D   A4 10      LDY $10
+068F   B1 00      LDA ($00),Y
+0691   8D 3F 05   STA $053F
+0694   98         TYA
+0695   18         CLC
+0696   69 06      ADC #$06
+0698   A8         TAY
+0699   B1 00      LDA ($00),Y
+069B   8D 5F 05   STA $055F
+069E   98         TYA
+069F   18         CLC
+06A0   69 06      ADC #$06
+06A2   A8         TAY
+06A3   B1 00      LDA ($00),Y
+06A5   8D 7F 05   STA $057F
+06A8   98         TYA
+06A9   18         CLC
+06AA   69 06      ADC #$06
+06AC   A8         TAY
+06AD   B1 00      LDA ($00),Y
+06AF   8D 9F 05   STA $059F
+06B2   98         TYA
+06B3   18         CLC
+06B4   69 06      ADC #$06
+06B6   A8         TAY
+06B7   B1 00      LDA ($00),Y
+06B9   8D BF 05   STA $05BF
+06BC   60         RTS
+06BD   A9 F5      LDA #$F5
+06BF   85 20      STA $20
+06C1   A9 06      LDA #$06
+06C3   85 21      STA $21
+06C5   A9 00      LDA #$00
+06C7   85 22      STA $22
+06C9   A9 02      LDA #$02
+06CB   85 23      STA $23
+06CD   A2 00      LDX #$00
+06CF   60         RTS
+06D0   A2 00      LDX #$00
+06D2   A1 20      LDA ($20,X)
+06D4   C9 FF      CMP #$FF
+06D6   F0 1C      BEQ $06F4
+06D8   81 22      STA ($22,X)
+06DA   E6 20      INC $20
+06DC   A5 20      LDA $20
+06DE   C9 00      CMP #$00
+06E0   D0 02      BNE $06E4
+06E2   E6 21      INC $21
+06E4   E6 22      INC $22
+06E6   A5 22      LDA $22
+06E8   C9 00      CMP #$00
+06EA   D0 08      BNE $06F4
+06EC   A5 23      LDA $23
+06EE   C9 05      CMP #$05
+06F0   F0 02      BEQ $06F4
+06F2   E6 23      INC $23
+06F4   60         RTS
+06F5   00         BRK
+06F6   00         BRK
+06F7   00         BRK
+06F8   00         BRK
+06F9   00         BRK
+06FA   00         BRK
+06FB   00         BRK
+06FC   00         BRK
+06FD   00         BRK
+06FE   0B         ???
+06FF   0B         ???
+0700   0C         ???
+0701   0F         ???
+0702   0F         ???
+0703   0F         ???
+0704   0F         ???
+0705   0F         ???
+0706   0B         ???
+0707   00         BRK
+0708   00         BRK
+0709   00         BRK
+070A   0B         ???
+070B   0B         ???
+070C   0C         ???
+070D   0C         ???
+070E   0F         ???
+070F   0F         ???
+0710   0B         ???
+0711   00         BRK
+0712   00         BRK
+0713   00         BRK
+0714   00         BRK
+0715   00         BRK
+0716   00         BRK
+0717   00         BRK
+0718   00         BRK
+0719   00         BRK
+071A   00         BRK
+071B   00         BRK
+071C   00         BRK
+071D   00         BRK
+071E   0B         ???
+071F   0C         ???
+0720   0C         ???
+0721   0F         ???
+0722   0C         ???
+0723   0F         ???
+0724   0F         ???
+0725   0B         ???
+0726   0B         ???
+0727   0B         ???
+0728   0B         ???
+0729   0B         ???
+072A   00         BRK
+072B   0B         ???
+072C   0B         ???
+072D   0C         ???
+072E   0F         ???
+072F   0F         ???
+0730   0C         ???
+0731   00         BRK
+0732   00         BRK
+0733   00         BRK
+0734   00         BRK
+0735   00         BRK
+0736   00         BRK
+0737   00         BRK
+0738   00         BRK
+0739   00         BRK
+073A   00         BRK
+073B   00         BRK
+073C   0B         ???
+073D   00         BRK
+073E   0C         ???
+073F   0B         ???
+0740   0F         ???
+0741   0C         ???
+0742   0F         ???
+0743   0F         ???
+0744   0C         ???
+0745   0C         ???
+0746   0B         ???
+0747   00         BRK
+0748   0B         ???
+0749   0C         ???
+074A   0C         ???
+074B   0C         ???
+074C   0F         ???
+074D   0F         ???
+074E   01 0F      ORA ($0F,X)
+0750   0C         ???
+0751   0B         ???
+0752   00         BRK
+0753   00         BRK
+0754   00         BRK
+0755   00         BRK
+0756   00         BRK
+0757   00         BRK
+0758   00         BRK
+0759   00         BRK
+075A   00         BRK
+075B   00         BRK
+075C   00         BRK
+075D   0B         ???
+075E   0B         ???
+075F   0C         ???
+0760   0C         ???
+0761   0C         ???
+0762   0F         ???
+0763   0F         ???
+0764   0F         ???
+0765   0C         ???
+0766   0C         ???
+0767   0C         ???
+0768   0C         ???
+0769   0C         ???
+076A   0C         ???
+076B   0F         ???
+076C   0C         ???
+076D   0F         ???
+076E   0F         ???
+076F   0F         ???
+0770   0F         ???
+0771   0B         ???
+0772   00         BRK
+0773   00         BRK
+0774   00         BRK
+0775   00         BRK
+0776   00         BRK
+0777   00         BRK
+0778   00         BRK
+0779   00         BRK
+077A   00         BRK
+077B   00         BRK
+077C   0B         ???
+077D   00         BRK
+077E   00         BRK
+077F   0B         ???
+0780   0C         ???
+0781   0C         ???
+0782   0F         ???
+0783   0F         ???
+0784   0F         ???
+0785   0F         ???
+0786   0C         ???
+0787   0F         ???
+0788   0F         ???
+0789   0F         ???
+078A   0F         ???
+078B   0F         ???
+078C   0F         ???
+078D   0F         ???
+078E   01 0F      ORA ($0F,X)
+0790   0F         ???
+0791   0C         ???
+0792   00         BRK
+0793   00         BRK
+0794   00         BRK
+0795   00         BRK
+0796   00         BRK
+0797   00         BRK
+0798   00         BRK
+0799   00         BRK
+079A   00         BRK
+079B   00         BRK
+079C   00         BRK
+079D   00         BRK
+079E   0B         ???
+079F   0B         ???
+07A0   0B         ???
+07A1   0C         ???
+07A2   0F         ???
+07A3   0F         ???
+07A4   01 0F      ORA ($0F,X)
+07A6   0F         ???
+07A7   0C         ???
+07A8   0F         ???
+07A9   0F         ???
+07AA   0F         ???
+07AB   01 0F      ORA ($0F,X)
+07AD   0F         ???
+07AE   0F         ???
+07AF   0F         ???
+07B0   0F         ???
+07B1   0F         ???
+07B2   00         BRK
+07B3   00         BRK
+07B4   00         BRK
+07B5   00         BRK
+07B6   00         BRK
+07B7   00         BRK
+07B8   00         BRK
+07B9   00         BRK
+07BA   00         BRK
+07BB   00         BRK
+07BC   00         BRK
+07BD   00         BRK
+07BE   0B         ???
+07BF   0B         ???
+07C0   0B         ???
+07C1   0B         ???
+07C2   0C         ???
+07C3   0F         ???
+07C4   01 0F      ORA ($0F,X)
+07C6   0F         ???
+07C7   0F         ???
+07C8   0F         ???
+07C9   0F         ???
+07CA   0F         ???
+07CB   0F         ???
+07CC   0F         ???
+07CD   01 0F      ORA ($0F,X)
+07CF   0F         ???
+07D0   0F         ???
+07D1   0F         ???
+07D2   0B         ???
+07D3   00         BRK
+07D4   00         BRK
+07D5   00         BRK
+07D6   00         BRK
+07D7   00         BRK
+07D8   00         BRK
+07D9   00         BRK
+07DA   00         BRK
+07DB   00         BRK
+07DC   00         BRK
+07DD   0B         ???
+07DE   00         BRK
+07DF   0B         ???
+07E0   0C         ???
+07E1   0B         ???
+07E2   0C         ???
+07E3   0C         ???
+07E4   01 01      ORA ($01,X)
+07E6   0F         ???
+07E7   01 0F      ORA ($0F,X)
+07E9   01 0F      ORA ($0F,X)
+07EB   01 0F      ORA ($0F,X)
+07ED   0F         ???
+07EE   01 0F      ORA ($0F,X)
+07F0   0F         ???
+07F1   01 0B      ORA ($0B,X)
+07F3   00         BRK
+07F4   00         BRK
+07F5   00         BRK
+07F6   00         BRK
+07F7   00         BRK
+07F8   00         BRK
+07F9   00         BRK
+07FA   00         BRK
+07FB   00         BRK
+07FC   0B         ???
+07FD   0B         ???
+07FE   0B         ???
+07FF   0C         ???
+0800   0C         ???
+0801   0B         ???
+0802   0C         ???
+0803   0F         ???
+0804   01 01      ORA ($01,X)
+0806   01 0F      ORA ($0F,X)
+0808   0F         ???
+0809   01 0F      ORA ($0F,X)
+080B   0F         ???
+080C   01 0F      ORA ($0F,X)
+080E   0F         ???
+080F   0F         ???
+0810   0F         ???
+0811   01 0C      ORA ($0C,X)
+0813   00         BRK
+0814   00         BRK
+0815   00         BRK
+0816   00         BRK
+0817   00         BRK
+0818   00         BRK
+0819   00         BRK
+081A   00         BRK
+081B   00         BRK
+081C   0B         ???
+081D   0B         ???
+081E   0C         ???
+081F   0C         ???
+0820   0C         ???
+0821   0B         ???
+0822   0C         ???
+0823   0C         ???
+0824   0F         ???
+0825   01 01      ORA ($01,X)
+0827   01 0F      ORA ($0F,X)
+0829   0F         ???
+082A   01 0F      ORA ($0F,X)
+082C   01 0F      ORA ($0F,X)
+082E   01 0F      ORA ($0F,X)
+0830   0F         ???
+0831   01 0C      ORA ($0C,X)
+0833   00         BRK
+0834   00         BRK
+0835   00         BRK
+0836   00         BRK
+0837   00         BRK
+0838   00         BRK
+0839   00         BRK
+083A   0B         ???
+083B   0B         ???
+083C   0B         ???
+083D   0C         ???
+083E   0C         ???
+083F   0C         ???
+0840   0F         ???
+0841   0C         ???
+0842   0C         ???
+0843   0F         ???
+0844   0F         ???
+0845   01 01      ORA ($01,X)
+0847   01 01      ORA ($01,X)
+0849   0F         ???
+084A   0F         ???
+084B   0F         ???
+084C   01 0F      ORA ($0F,X)
+084E   01 0F      ORA ($0F,X)
+0850   0F         ???
+0851   0F         ???
+0852   0F         ???
+0853   00         BRK
+0854   00         BRK
+0855   00         BRK
+0856   00         BRK
+0857   00         BRK
+0858   00         BRK
+0859   00         BRK
+085A   00         BRK
+085B   0B         ???
+085C   0C         ???
+085D   0C         ???
+085E   0C         ???
+085F   0F         ???
+0860   0C         ???
+0861   0F         ???
+0862   0C         ???
+0863   0F         ???
+0864   0F         ???
+0865   01 01      ORA ($01,X)
+0867   01 01      ORA ($01,X)
+0869   01 0F      ORA ($0F,X)
+086B   0F         ???
+086C   01 0F      ORA ($0F,X)
+086E   0F         ???
+086F   0F         ???
+0870   0F         ???
+0871   01 0F      ORA ($0F,X)
+0873   0B         ???
+0874   00         BRK
+0875   00         BRK
+0876   00         BRK
+0877   00         BRK
+0878   00         BRK
+0879   0B         ???
+087A   0B         ???
+087B   0B         ???
+087C   0C         ???
+087D   0C         ???
+087E   0F         ???
+087F   0C         ???
+0880   0F         ???
+0881   0F         ???
+0882   0C         ???
+0883   0F         ???
+0884   0F         ???
+0885   01 01      ORA ($01,X)
+0887   01 01      ORA ($01,X)
+0889   01 0F      ORA ($0F,X)
+088B   0F         ???
+088C   0F         ???
+088D   01 0F      ORA ($0F,X)
+088F   0F         ???
+0890   0F         ???
+0891   01 0C      ORA ($0C,X)
+0893   0B         ???
+0894   0B         ???
+0895   00         BRK
+0896   00         BRK
+0897   00         BRK
+0898   00         BRK
+0899   0B         ???
+089A   0B         ???
+089B   0C         ???
+089C   0F         ???
+089D   0C         ???
+089E   0F         ???
+089F   0F         ???
+08A0   0F         ???
+08A1   0F         ???
+08A2   0F         ???
+08A3   0C         ???
+08A4   0F         ???
+08A5   01 01      ORA ($01,X)
+08A7   01 01      ORA ($01,X)
+08A9   01 0F      ORA ($0F,X)
+08AB   0F         ???
+08AC   0F         ???
+08AD   01 0F      ORA ($0F,X)
+08AF   0F         ???
+08B0   0F         ???
+08B1   0F         ???
+08B2   0F         ???
+08B3   0B         ???
+08B4   0B         ???
+08B5   00         BRK
+08B6   00         BRK
+08B7   00         BRK
+08B8   00         BRK
+08B9   0B         ???
+08BA   0C         ???
+08BB   0C         ???
+08BC   0C         ???
+08BD   0F         ???
+08BE   0F         ???
+08BF   0F         ???
+08C0   0F         ???
+08C1   0F         ???
+08C2   0F         ???
+08C3   0F         ???
+08C4   0F         ???
+08C5   0F         ???
+08C6   01 01      ORA ($01,X)
+08C8   01 0F      ORA ($0F,X)
+08CA   0B         ???
+08CB   0F         ???
+08CC   0F         ???
+08CD   0F         ???
+08CE   01 0F      ORA ($0F,X)
+08D0   0F         ???
+08D1   0F         ???
+08D2   0F         ???
+08D3   0B         ???
+08D4   0B         ???
+08D5   00         BRK
+08D6   00         BRK
+08D7   00         BRK
+08D8   00         BRK
+08D9   0B         ???
+08DA   0C         ???
+08DB   0C         ???
+08DC   0F         ???
+08DD   0C         ???
+08DE   0F         ???
+08DF   0F         ???
+08E0   0F         ???
+08E1   0F         ???
+08E2   0F         ???
+08E3   0F         ???
+08E4   0F         ???
+08E5   0F         ???
+08E6   0F         ???
+08E7   0F         ???
+08E8   0C         ???
+08E9   0B         ???
+08EA   0F         ???
+08EB   0F         ???
+08EC   01 0F      ORA ($0F,X)
+08EE   0F         ???
+08EF   0F         ???
+08F0   0F         ???
+08F1   0F         ???
+08F2   0F         ???
+08F3   0C         ???
+08F4   0B         ???
+08F5   00         BRK
+08F6   00         BRK
+08F7   00         BRK
+08F8   00         BRK
+08F9   0B         ???
+08FA   0B         ???
+08FB   0C         ???
+08FC   0C         ???
+08FD   0F         ???
+08FE   0C         ???
+08FF   0F         ???
+0900   0F         ???
+0901   0F         ???
+0902   0F         ???
+0903   0F         ???
+0904   0F         ???
+0905   0C         ???
+0906   0C         ???
+0907   0B         ???
+0908   0C         ???
+0909   0C         ???
+090A   0F         ???
+090B   0F         ???
+090C   01 0C      ORA ($0C,X)
+090E   0C         ???
+090F   0F         ???
+0910   0F         ???
+0911   0F         ???
+0912   0F         ???
+0913   0C         ???
+0914   0B         ???
+0915   00         BRK
+0916   00         BRK
+0917   00         BRK
+0918   00         BRK
+0919   0B         ???
+091A   0B         ???
+091B   0C         ???
+091C   0C         ???
+091D   0C         ???
+091E   0F         ???
+091F   0F         ???
+0920   0F         ???
+0921   0F         ???
+0922   0F         ???
+0923   0F         ???
+0924   0F         ???
+0925   0F         ???
+0926   0F         ???
+0927   0F         ???
+0928   0F         ???
+0929   0F         ???
+092A   01 0F      ORA ($0F,X)
+092C   0C         ???
+092D   0B         ???
+092E   0F         ???
+092F   0C         ???
+0930   0F         ???
+0931   0C         ???
+0932   0F         ???
+0933   0C         ???
+0934   0B         ???
+0935   00         BRK
+0936   00         BRK
+0937   00         BRK
+0938   00         BRK
+0939   00         BRK
+093A   0B         ???
+093B   0C         ???
+093C   0C         ???
+093D   0C         ???
+093E   0C         ???
+093F   0F         ???
+0940   0F         ???
+0941   0F         ???
+0942   0F         ???
+0943   0F         ???
+0944   0F         ???
+0945   0F         ???
+0946   0F         ???
+0947   0F         ???
+0948   0F         ???
+0949   0F         ???
+094A   0C         ???
+094B   0B         ???
+094C   0C         ???
+094D   0C         ???
+094E   0C         ???
+094F   0F         ???
+0950   0F         ???
+0951   0C         ???
+0952   0F         ???
+0953   0C         ???
+0954   0C         ???
+0955   00         BRK
+0956   00         BRK
+0957   00         BRK
+0958   00         BRK
+0959   00         BRK
+095A   0B         ???
+095B   0B         ???
+095C   0C         ???
+095D   0C         ???
+095E   0C         ???
+095F   0C         ???
+0960   0C         ???
+0961   0F         ???
+0962   0F         ???
+0963   0F         ???
+0964   0F         ???
+0965   0F         ???
+0966   0F         ???
+0967   0F         ???
+0968   0C         ???
+0969   0B         ???
+096A   0B         ???
+096B   0C         ???
+096C   0C         ???
+096D   0C         ???
+096E   0F         ???
+096F   0C         ???
+0970   0F         ???
+0971   0F         ???
+0972   0F         ???
+0973   0C         ???
+0974   0B         ???
+0975   00         BRK
+0976   00         BRK
+0977   00         BRK
+0978   00         BRK
+0979   00         BRK
+097A   0B         ???
+097B   0B         ???
+097C   0B         ???
+097D   0B         ???
+097E   0C         ???
+097F   0C         ???
+0980   0F         ???
+0981   0C         ???
+0982   0F         ???
+0983   0F         ???
+0984   0F         ???
+0985   0C         ???
+0986   0C         ???
+0987   0B         ???
+0988   0B         ???
+0989   0B         ???
+098A   0C         ???
+098B   0B         ???
+098C   0B         ???
+098D   0C         ???
+098E   0C         ???
+098F   0F         ???
+0990   0C         ???
+0991   0C         ???
+0992   0F         ???
+0993   0C         ???
+0994   0C         ???
+0995   00         BRK
+0996   00         BRK
+0997   00         BRK
+0998   00         BRK
+0999   00         BRK
+099A   00         BRK
+099B   0B         ???
+099C   0B         ???
+099D   0C         ???
+099E   0B         ???
+099F   0C         ???
+09A0   0C         ???
+09A1   0C         ???
+09A2   0C         ???
+09A3   0C         ???
+09A4   0C         ???
+09A5   0B         ???
+09A6   0B         ???
+09A7   0B         ???
+09A8   0B         ???
+09A9   0C         ???
+09AA   0B         ???
+09AB   0B         ???
+09AC   0C         ???
+09AD   0C         ???
+09AE   0F         ???
+09AF   0F         ???
+09B0   0F         ???
+09B1   0C         ???
+09B2   0C         ???
+09B3   0C         ???
+09B4   0B         ???
+09B5   00         BRK
+09B6   00         BRK
+09B7   00         BRK
+09B8   00         BRK
+09B9   00         BRK
+09BA   00         BRK
+09BB   00         BRK
+09BC   00         BRK
+09BD   0B         ???
+09BE   0B         ???
+09BF   0B         ???
+09C0   0C         ???
+09C1   0C         ???
+09C2   0C         ???
+09C3   0C         ???
+09C4   0C         ???
+09C5   0C         ???
+09C6   0C         ???
+09C7   0B         ???
+09C8   0B         ???
+09C9   0B         ???
+09CA   0B         ???
+09CB   0C         ???
+09CC   0C         ???
+09CD   0F         ???
+09CE   0F         ???
+09CF   0F         ???
+09D0   0C         ???
+09D1   0C         ???
+09D2   0C         ???
+09D3   0C         ???
+09D4   0C         ???
+09D5   FF         ???
+09D6   05 05      ORA $05
+09D8   05 05      ORA $05
+09DA   05 05      ORA $05
+09DC   05 05      ORA $05
+09DE   02         ???
+09DF   05 05      ORA $05
+09E1   05 06      ORA $06
+09E3   06 05      ASL $05
+09E5   05 06      ORA $06
+09E7   05 05      ORA $05
+09E9   04         ???
+09EA   05 06      ORA $06
+09EC   06 06      ASL $06
+09EE   06 05      ASL $05
+09F0   02         ???
+09F1   03         ???
+09F2   00         BRK
+09F3   0E 0D 0B   ASL $0B0D
+09F6   18         CLC
+09F7   1B         ???
+09F8   03         ???
+09F9   04         ???
+09FA   0F         ???
+09FB   13         ???
+09FC   07         ???
+09FD   1B         ???
+09FE   0C         ???
+09FF   00         BRK
+0A00   0A         ASL A
+0A01   04         ???
+0A02   12         ???
+0A03   1B         ???
+0A04   08         PHP
+0A05   13         ???
+0A06   1B         ???
+0A07   0F         ???
+0A08   0E 12 12   ASL $1212
+0A0B   08         PHP
+0A0C   01 0B      ORA ($0B,X)
+0A0E   04         ???
+0A0F   1A         ???
+0A10   1A         ???
+0A11   1A         ???
+0A12   13         ???
+0A13   07         ???
+0A14   08         PHP
+0A15   12         ???
+0A16   1B         ???
+0A17   08         PHP
+0A18   12         ???
+0A19   1B         ???
+0A1A   13         ???
+0A1B   07         ???
+0A1C   04         ???
+0A1D   1B         ???
+0A1E   05 08      ORA $08
+0A20   11 12      ORA ($12),Y
+0A22   13         ???
+0A23   1B         ???
+0A24   03         ???
+0A25   04         ???
+0A26   0C         ???
+0A27   0E 1B 0C   ASL $0C1B
+0A2A   00         BRK
+0A2B   03         ???
+0A2C   04         ???
+0A2D   1B         ???
+0A2E   08         PHP
+0A2F   0D 1B 13   ORA $131B
+0A32   07         ???
+0A33   08         PHP
+0A34   12         ???
+0A35   1B         ???
+0A36   04         ???
+0A37   0D 15 1A   ORA $1A15
+0A3A   1A         ???
+0A3B   1A         ???
+0A3C   1A         ???
+0A3D   1B         ???
+0A3E   07         ???
+0A3F   0E 0F 04   ASL $040F
+0A42   1B         ???
+0A43   18         CLC
+0A44   0E 14 1B   ASL $1B14
+0A47   0B         ???
+0A48   08         PHP
+0A49   0A         ASL A
+0A4A   04         ???
+0A4B   1B         ???
+0A4C   08         PHP
+0A4D   13         ???
+0A4E   1A         ???
+0A4F   1A         ???
+0A50   1A         ???
+0A51   1B         ???
+0A52   1B         ???
+0A53   16 16      ASL $16,X
+0A55   16 1A      ASL $1A,X
+0A57   03         ???
+0A58   04         ???
+0A59   0F         ???
+0A5A   13         ???
+0A5B   07         ???
+0A5C   1A         ???
+0A5D   0E 11 06   ASL $0611
+0A60   1B         ???
+0A61   1B         ???
+0A62   1B         ???
+0A63   1B         ???
+0A64   1B         ???
+0A65   FF         ???
+0A66   00         BRK
+0A67   00         BRK
+0A68   20 00 40   JSR $4000
+0A6B   00         BRK
+0A6C   60         RTS
+0A6D   00         BRK
+0A6E   80         ???
+0A6F   00         BRK
+0A70   A0 00      LDY #$00
+0A72   C0 00      CPY #$00
+0A74   E0 00      CPX #$00
+0A76   00         BRK
+0A77   01 20      ORA ($20,X)
+0A79   01 40      ORA ($40,X)
+0A7B   01 60      ORA ($60,X)
+0A7D   01 80      ORA ($80,X)
+0A7F   01 A0      ORA ($A0,X)
+0A81   01 C0      ORA ($C0,X)
+0A83   01 E0      ORA ($E0,X)
+0A85   01 00      ORA ($00,X)
+0A87   02         ???
+0A88   20 02 40   JSR $4002
+0A8B   02         ???
+0A8C   60         RTS
+0A8D   02         ???
+0A8E   80         ???
+0A8F   02         ???
+0A90   A0 02      LDY #$02
+0A92   C0 02      CPY #$02
+0A94   E0 02      CPX #$02
+0A96   00         BRK
+0A97   03         ???
+0A98   20 03 40   JSR $4003
+0A9B   03         ???
+0A9C   60         RTS
+0A9D   03         ???
+0A9E   00         BRK
+0A9F   01 01      ORA ($01,X)
+0AA1   00         BRK
+0AA2   00         BRK
+0AA3   00         BRK
+0AA4   01 00      ORA ($00,X)
+0AA6   00         BRK
+0AA7   01 00      ORA ($00,X)
+0AA9   00         BRK
+0AAA   01 01      ORA ($01,X)
+0AAC   01 01      ORA ($01,X)
+0AAE   00         BRK
+0AAF   00         BRK
+0AB0   01 00      ORA ($00,X)
+0AB2   00         BRK
+0AB3   01 00      ORA ($00,X)
+0AB5   00         BRK
+0AB6   01 00      ORA ($00,X)
+0AB8   00         BRK
+0AB9   01 00      ORA ($00,X)
+0ABB   00         BRK
+0ABC   00         BRK
+0ABD   00         BRK
+0ABE   00         BRK
+0ABF   01 01      ORA ($01,X)
+0AC1   01 00      ORA ($00,X)
+0AC3   00         BRK
+0AC4   01 00      ORA ($00,X)
+0AC6   00         BRK
+0AC7   01 00      ORA ($00,X)
+0AC9   00         BRK
+0ACA   00         BRK
+0ACB   01 01      ORA ($01,X)
+0ACD   01 00      ORA ($00,X)
+0ACF   00         BRK
+0AD0   01 00      ORA ($00,X)
+0AD2   00         BRK
+0AD3   01 00      ORA ($00,X)
+0AD5   00         BRK
+0AD6   00         BRK
+0AD7   01 01      ORA ($01,X)
+0AD9   01 00      ORA ($00,X)
+0ADB   00         BRK
+0ADC   00         BRK
+0ADD   00         BRK
+0ADE   00         BRK
+0ADF   01 01      ORA ($01,X)
+0AE1   00         BRK
+0AE2   00         BRK
+0AE3   00         BRK
+0AE4   01 00      ORA ($00,X)
+0AE6   00         BRK
+0AE7   01 00      ORA ($00,X)
+0AE9   00         BRK
+0AEA   00         BRK
+0AEB   00         BRK
+0AEC   00         BRK
+0AED   01 00      ORA ($00,X)
+0AEF   00         BRK
+0AF0   01 00      ORA ($00,X)
+0AF2   00         BRK
+0AF3   01 00      ORA ($00,X)
+0AF5   00         BRK
+0AF6   00         BRK
+0AF7   01 01      ORA ($01,X)
+0AF9   00         BRK
+0AFA   00         BRK
+0AFB   00         BRK
+0AFC   00         BRK
+0AFD   00         BRK
+0AFE   00         BRK
+0AFF   01 01      ORA ($01,X)
+0B01   01 00      ORA ($00,X)
+0B03   00         BRK
+0B04   01 00      ORA ($00,X)
+0B06   00         BRK
+0B07   01 00      ORA ($00,X)
+0B09   00         BRK
+0B0A   01 00      ORA ($00,X)
+0B0C   00         BRK
+0B0D   01 00      ORA ($00,X)
+0B0F   00         BRK
+0B10   01 00      ORA ($00,X)
+0B12   00         BRK
+0B13   01 00      ORA ($00,X)
+0B15   00         BRK
+0B16   00         BRK
+0B17   01 01      ORA ($01,X)
+0B19   01 00      ORA ($00,X)
+0B1B   00         BRK
+0B1C   00         BRK
+0B1D   00         BRK
+0B1E   01 01      ORA ($01,X)
+0B20   01 01      ORA ($01,X)
+0B22   00         BRK
+0B23   00         BRK
+0B24   00         BRK
+0B25   00         BRK
+0B26   00         BRK
+0B27   01 00      ORA ($00,X)
+0B29   00         BRK
+0B2A   00         BRK
+0B2B   01 01      ORA ($01,X)
+0B2D   01 00      ORA ($00,X)
+0B2F   00         BRK
+0B30   00         BRK
+0B31   00         BRK
+0B32   00         BRK
+0B33   01 00      ORA ($00,X)
+0B35   00         BRK
+0B36   01 01      ORA ($01,X)
+0B38   01 01      ORA ($01,X)
+0B3A   00         BRK
+0B3B   00         BRK
+0B3C   00         BRK
+0B3D   00         BRK
+0B3E   01 01      ORA ($01,X)
+0B40   01 01      ORA ($01,X)
+0B42   00         BRK
+0B43   00         BRK
+0B44   00         BRK
+0B45   00         BRK
+0B46   00         BRK
+0B47   01 00      ORA ($00,X)
+0B49   00         BRK
+0B4A   00         BRK
+0B4B   01 01      ORA ($01,X)
+0B4D   01 00      ORA ($00,X)
+0B4F   00         BRK
+0B50   00         BRK
+0B51   00         BRK
+0B52   00         BRK
+0B53   01 00      ORA ($00,X)
+0B55   00         BRK
+0B56   00         BRK
+0B57   00         BRK
+0B58   00         BRK
+0B59   01 00      ORA ($00,X)
+0B5B   00         BRK
+0B5C   00         BRK
+0B5D   00         BRK
+0B5E   01 01      ORA ($01,X)
+0B60   01 00      ORA ($00,X)
+0B62   00         BRK
+0B63   00         BRK
+0B64   00         BRK
+0B65   00         BRK
+0B66   00         BRK
+0B67   01 00      ORA ($00,X)
+0B69   00         BRK
+0B6A   01 01      ORA ($01,X)
+0B6C   00         BRK
+0B6D   01 00      ORA ($00,X)
+0B6F   00         BRK
+0B70   01 00      ORA ($00,X)
+0B72   00         BRK
+0B73   01 00      ORA ($00,X)
+0B75   00         BRK
+0B76   01 01      ORA ($01,X)
+0B78   01 00      ORA ($00,X)
+0B7A   00         BRK
+0B7B   00         BRK
+0B7C   00         BRK
+0B7D   00         BRK
+0B7E   01 00      ORA ($00,X)
+0B80   00         BRK
+0B81   01 00      ORA ($00,X)
+0B83   00         BRK
+0B84   01 00      ORA ($00,X)
+0B86   00         BRK
+0B87   01 00      ORA ($00,X)
+0B89   00         BRK
+0B8A   01 01      ORA ($01,X)
+0B8C   01 01      ORA ($01,X)
+0B8E   00         BRK
+0B8F   00         BRK
+0B90   01 00      ORA ($00,X)
+0B92   00         BRK
+0B93   01 00      ORA ($00,X)
+0B95   00         BRK
+0B96   01 00      ORA ($00,X)
+0B98   00         BRK
+0B99   01 00      ORA ($00,X)
+0B9B   00         BRK
+0B9C   00         BRK
+0B9D   00         BRK
+0B9E   01 00      ORA ($00,X)
+0BA0   00         BRK
+0BA1   00         BRK
+0BA2   00         BRK
+0BA3   00         BRK
+0BA4   01 00      ORA ($00,X)
+0BA6   00         BRK
+0BA7   00         BRK
+0BA8   00         BRK
+0BA9   00         BRK
+0BAA   01 00      ORA ($00,X)
+0BAC   00         BRK
+0BAD   00         BRK
+0BAE   00         BRK
+0BAF   00         BRK
+0BB0   01 00      ORA ($00,X)
+0BB2   00         BRK
+0BB3   00         BRK
+0BB4   00         BRK
+0BB5   00         BRK
+0BB6   01 00      ORA ($00,X)
+0BB8   00         BRK
+0BB9   00         BRK
+0BBA   00         BRK
+0BBB   00         BRK
+0BBC   00         BRK
+0BBD   00         BRK
+0BBE   01 00      ORA ($00,X)
+0BC0   00         BRK
+0BC1   00         BRK
+0BC2   00         BRK
+0BC3   00         BRK
+0BC4   01 00      ORA ($00,X)
+0BC6   00         BRK
+0BC7   00         BRK
+0BC8   00         BRK
+0BC9   00         BRK
+0BCA   01 00      ORA ($00,X)
+0BCC   00         BRK
+0BCD   00         BRK
+0BCE   00         BRK
+0BCF   00         BRK
+0BD0   01 00      ORA ($00,X)
+0BD2   00         BRK
+0BD3   01 00      ORA ($00,X)
+0BD5   00         BRK
+0BD6   00         BRK
+0BD7   01 01      ORA ($01,X)
+0BD9   00         BRK
+0BDA   00         BRK
+0BDB   00         BRK
+0BDC   00         BRK
+0BDD   00         BRK
+0BDE   01 00      ORA ($00,X)
+0BE0   00         BRK
+0BE1   01 00      ORA ($00,X)
+0BE3   00         BRK
+0BE4   00         BRK
+0BE5   01 00      ORA ($00,X)
+0BE7   01 00      ORA ($00,X)
+0BE9   00         BRK
+0BEA   00         BRK
+0BEB   00         BRK
+0BEC   01 01      ORA ($01,X)
+0BEE   00         BRK
+0BEF   00         BRK
+0BF0   00         BRK
+0BF1   01 00      ORA ($00,X)
+0BF3   01 00      ORA ($00,X)
+0BF5   00         BRK
+0BF6   01 00      ORA ($00,X)
+0BF8   00         BRK
+0BF9   01 00      ORA ($00,X)
+0BFB   00         BRK
+0BFC   00         BRK
+0BFD   00         BRK
+0BFE   00         BRK
+0BFF   00         BRK
+0C00   00         BRK
+0C01   01 00      ORA ($00,X)
+0C03   00         BRK
+0C04   00         BRK
+0C05   00         BRK
+0C06   00         BRK
+0C07   01 00      ORA ($00,X)
+0C09   00         BRK
+0C0A   00         BRK
+0C0B   00         BRK
+0C0C   00         BRK
+0C0D   01 00      ORA ($00,X)
+0C0F   00         BRK
+0C10   00         BRK
+0C11   00         BRK
+0C12   00         BRK
+0C13   01 00      ORA ($00,X)
+0C15   00         BRK
+0C16   01 01      ORA ($01,X)
+0C18   01 01      ORA ($01,X)
+0C1A   00         BRK
+0C1B   00         BRK
+0C1C   00         BRK
+0C1D   00         BRK
+0C1E   01 00      ORA ($00,X)
+0C20   00         BRK
+0C21   00         BRK
+0C22   01 00      ORA ($00,X)
+0C24   01 01      ORA ($01,X)
+0C26   00         BRK
+0C27   01 01      ORA ($01,X)
+0C29   00         BRK
+0C2A   01 00      ORA ($00,X)
+0C2C   01 00      ORA ($00,X)
+0C2E   01 00      ORA ($00,X)
+0C30   01 00      ORA ($00,X)
+0C32   00         BRK
+0C33   00         BRK
+0C34   01 00      ORA ($00,X)
+0C36   01 00      ORA ($00,X)
+0C38   00         BRK
+0C39   00         BRK
+0C3A   01 00      ORA ($00,X)
+0C3C   00         BRK
+0C3D   00         BRK
+0C3E   01 00      ORA ($00,X)
+0C40   00         BRK
+0C41   00         BRK
+0C42   01 00      ORA ($00,X)
+0C44   01 00      ORA ($00,X)
+0C46   00         BRK
+0C47   01 01      ORA ($01,X)
+0C49   00         BRK
+0C4A   01 00      ORA ($00,X)
+0C4C   01 00      ORA ($00,X)
+0C4E   01 00      ORA ($00,X)
+0C50   01 01      ORA ($01,X)
+0C52   00         BRK
+0C53   00         BRK
+0C54   01 00      ORA ($00,X)
+0C56   01 00      ORA ($00,X)
+0C58   00         BRK
+0C59   00         BRK
+0C5A   01 00      ORA ($00,X)
+0C5C   00         BRK
+0C5D   00         BRK
+0C5E   00         BRK
+0C5F   01 01      ORA ($01,X)
+0C61   00         BRK
+0C62   00         BRK
+0C63   00         BRK
+0C64   01 00      ORA ($00,X)
+0C66   00         BRK
+0C67   01 00      ORA ($00,X)
+0C69   00         BRK
+0C6A   01 00      ORA ($00,X)
+0C6C   00         BRK
+0C6D   01 00      ORA ($00,X)
+0C6F   00         BRK
+0C70   01 00      ORA ($00,X)
+0C72   00         BRK
+0C73   01 00      ORA ($00,X)
+0C75   00         BRK
+0C76   00         BRK
+0C77   01 01      ORA ($01,X)
+0C79   00         BRK
+0C7A   00         BRK
+0C7B   00         BRK
+0C7C   00         BRK
+0C7D   00         BRK
+0C7E   00         BRK
+0C7F   01 01      ORA ($01,X)
+0C81   01 00      ORA ($00,X)
+0C83   00         BRK
+0C84   01 00      ORA ($00,X)
+0C86   00         BRK
+0C87   01 00      ORA ($00,X)
+0C89   00         BRK
+0C8A   00         BRK
+0C8B   01 01      ORA ($01,X)
+0C8D   01 00      ORA ($00,X)
+0C8F   00         BRK
+0C90   00         BRK
+0C91   00         BRK
+0C92   00         BRK
+0C93   01 00      ORA ($00,X)
+0C95   00         BRK
+0C96   00         BRK
+0C97   00         BRK
+0C98   00         BRK
+0C99   01 00      ORA ($00,X)
+0C9B   00         BRK
+0C9C   00         BRK
+0C9D   00         BRK
+0C9E   00         BRK
+0C9F   01 01      ORA ($01,X)
+0CA1   00         BRK
+0CA2   00         BRK
+0CA3   00         BRK
+0CA4   01 00      ORA ($00,X)
+0CA6   00         BRK
+0CA7   01 00      ORA ($00,X)
+0CA9   00         BRK
+0CAA   01 00      ORA ($00,X)
+0CAC   00         BRK
+0CAD   01 00      ORA ($00,X)
+0CAF   00         BRK
+0CB0   00         BRK
+0CB1   01 00      ORA ($00,X)
+0CB3   01 00      ORA ($00,X)
+0CB5   00         BRK
+0CB6   01 00      ORA ($00,X)
+0CB8   01 00      ORA ($00,X)
+0CBA   00         BRK
+0CBB   00         BRK
+0CBC   00         BRK
+0CBD   00         BRK
+0CBE   00         BRK
+0CBF   01 01      ORA ($01,X)
+0CC1   01 00      ORA ($00,X)
+0CC3   00         BRK
+0CC4   01 00      ORA ($00,X)
+0CC6   00         BRK
+0CC7   01 00      ORA ($00,X)
+0CC9   00         BRK
+0CCA   00         BRK
+0CCB   01 01      ORA ($01,X)
+0CCD   01 00      ORA ($00,X)
+0CCF   00         BRK
+0CD0   00         BRK
+0CD1   01 00      ORA ($00,X)
+0CD3   01 00      ORA ($00,X)
+0CD5   00         BRK
+0CD6   01 00      ORA ($00,X)
+0CD8   00         BRK
+0CD9   01 00      ORA ($00,X)
+0CDB   00         BRK
+0CDC   00         BRK
+0CDD   00         BRK
+0CDE   01 01      ORA ($01,X)
+0CE0   01 00      ORA ($00,X)
+0CE2   00         BRK
+0CE3   00         BRK
+0CE4   00         BRK
+0CE5   00         BRK
+0CE6   00         BRK
+0CE7   01 00      ORA ($00,X)
+0CE9   00         BRK
+0CEA   00         BRK
+0CEB   01 01      ORA ($01,X)
+0CED   00         BRK
+0CEE   00         BRK
+0CEF   00         BRK
+0CF0   01 00      ORA ($00,X)
+0CF2   00         BRK
+0CF3   00         BRK
+0CF4   00         BRK
+0CF5   00         BRK
+0CF6   00         BRK
+0CF7   01 01      ORA ($01,X)
+0CF9   01 00      ORA ($00,X)
+0CFB   00         BRK
+0CFC   00         BRK
+0CFD   00         BRK
+0CFE   01 01      ORA ($01,X)
+0D00   01 00      ORA ($00,X)
+0D02   00         BRK
+0D03   00         BRK
+0D04   00         BRK
+0D05   01 00      ORA ($00,X)
+0D07   00         BRK
+0D08   00         BRK
+0D09   00         BRK
+0D0A   00         BRK
+0D0B   01 00      ORA ($00,X)
+0D0D   00         BRK
+0D0E   00         BRK
+0D0F   00         BRK
+0D10   00         BRK
+0D11   01 00      ORA ($00,X)
+0D13   00         BRK
+0D14   00         BRK
+0D15   00         BRK
+0D16   00         BRK
+0D17   01 00      ORA ($00,X)
+0D19   00         BRK
+0D1A   00         BRK
+0D1B   00         BRK
+0D1C   00         BRK
+0D1D   00         BRK
+0D1E   01 00      ORA ($00,X)
+0D20   00         BRK
+0D21   01 00      ORA ($00,X)
+0D23   00         BRK
+0D24   01 00      ORA ($00,X)
+0D26   00         BRK
+0D27   01 00      ORA ($00,X)
+0D29   00         BRK
+0D2A   01 00      ORA ($00,X)
+0D2C   00         BRK
+0D2D   01 00      ORA ($00,X)
+0D2F   00         BRK
+0D30   01 00      ORA ($00,X)
+0D32   00         BRK
+0D33   01 00      ORA ($00,X)
+0D35   00         BRK
+0D36   01 01      ORA ($01,X)
+0D38   01 00      ORA ($00,X)
+0D3A   00         BRK
+0D3B   00         BRK
+0D3C   00         BRK
+0D3D   00         BRK
+0D3E   01 00      ORA ($00,X)
+0D40   00         BRK
+0D41   00         BRK
+0D42   01 00      ORA ($00,X)
+0D44   01 00      ORA ($00,X)
+0D46   00         BRK
+0D47   00         BRK
+0D48   01 00      ORA ($00,X)
+0D4A   01 00      ORA ($00,X)
+0D4C   00         BRK
+0D4D   00         BRK
+0D4E   01 00      ORA ($00,X)
+0D50   00         BRK
+0D51   01 00      ORA ($00,X)
+0D53   01 00      ORA ($00,X)
+0D55   00         BRK
+0D56   00         BRK
+0D57   00         BRK
+0D58   01 00      ORA ($00,X)
+0D5A   00         BRK
+0D5B   00         BRK
+0D5C   00         BRK
+0D5D   00         BRK
+0D5E   01 00      ORA ($00,X)
+0D60   00         BRK
+0D61   00         BRK
+0D62   01 00      ORA ($00,X)
+0D64   01 00      ORA ($00,X)
+0D66   00         BRK
+0D67   00         BRK
+0D68   01 00      ORA ($00,X)
+0D6A   01 00      ORA ($00,X)
+0D6C   01 00      ORA ($00,X)
+0D6E   01 00      ORA ($00,X)
+0D70   01 01      ORA ($01,X)
+0D72   00         BRK
+0D73   01 01      ORA ($01,X)
+0D75   00         BRK
+0D76   01 00      ORA ($00,X)
+0D78   00         BRK
+0D79   00         BRK
+0D7A   01 00      ORA ($00,X)
+0D7C   00         BRK
+0D7D   00         BRK
+0D7E   01 00      ORA ($00,X)
+0D80   00         BRK
+0D81   00         BRK
+0D82   01 00      ORA ($00,X)
+0D84   00         BRK
+0D85   01 00      ORA ($00,X)
+0D87   01 00      ORA ($00,X)
+0D89   00         BRK
+0D8A   00         BRK
+0D8B   00         BRK
+0D8C   01 00      ORA ($00,X)
+0D8E   00         BRK
+0D8F   00         BRK
+0D90   00         BRK
+0D91   01 00      ORA ($00,X)
+0D93   01 00      ORA ($00,X)
+0D95   00         BRK
+0D96   01 00      ORA ($00,X)
+0D98   00         BRK
+0D99   00         BRK
+0D9A   01 00      ORA ($00,X)
+0D9C   00         BRK
+0D9D   00         BRK
+0D9E   01 00      ORA ($00,X)
+0DA0   00         BRK
+0DA1   00         BRK
+0DA2   01 00      ORA ($00,X)
+0DA4   00         BRK
+0DA5   01 00      ORA ($00,X)
+0DA7   01 00      ORA ($00,X)
+0DA9   00         BRK
+0DAA   00         BRK
+0DAB   00         BRK
+0DAC   01 00      ORA ($00,X)
+0DAE   00         BRK
+0DAF   00         BRK
+0DB0   00         BRK
+0DB1   00         BRK
+0DB2   01 00      ORA ($00,X)
+0DB4   00         BRK
+0DB5   00         BRK
+0DB6   00         BRK
+0DB7   00         BRK
+0DB8   01 00      ORA ($00,X)
+0DBA   00         BRK
+0DBB   00         BRK
+0DBC   00         BRK
+0DBD   00         BRK
+0DBE   01 01      ORA ($01,X)
+0DC0   01 01      ORA ($01,X)
+0DC2   00         BRK
+0DC3   00         BRK
+0DC4   01 00      ORA ($00,X)
+0DC6   00         BRK
+0DC7   00         BRK
+0DC8   00         BRK
+0DC9   00         BRK
+0DCA   00         BRK
+0DCB   01 01      ORA ($01,X)
+0DCD   00         BRK
+0DCE   00         BRK
+0DCF   00         BRK
+0DD0   00         BRK
+0DD1   00         BRK
+0DD2   00         BRK
+0DD3   01 00      ORA ($00,X)
+0DD5   00         BRK
+0DD6   01 01      ORA ($01,X)
+0DD8   01 01      ORA ($01,X)
+0DDA   00         BRK
+0DDB   00         BRK
+0DDC   00         BRK
+0DDD   00         BRK
+0DDE   00         BRK
+0DDF   00         BRK
+0DE0   00         BRK
+0DE1   00         BRK
+0DE2   00         BRK
+0DE3   00         BRK
+0DE4   00         BRK
+0DE5   00         BRK
+0DE6   00         BRK
+0DE7   00         BRK
+0DE8   00         BRK
+0DE9   00         BRK
+0DEA   00         BRK
+0DEB   00         BRK
+0DEC   00         BRK
+0DED   00         BRK
+0DEE   00         BRK
+0DEF   00         BRK
+0DF0   00         BRK
+0DF1   00         BRK
+0DF2   00         BRK
+0DF3   00         BRK
+0DF4   00         BRK
+0DF5   00         BRK
+0DF6   01 00      ORA ($00,X)
+0DF8   00         BRK
+0DF9   00         BRK
+0DFA   00         BRK
+0DFB   00         BRK
+0DFC   00         BRK
+0DFD   00         BRK
+0DFE   00         BRK
+0DFF   00         BRK
+0E00   00         BRK
+0E01   00         BRK
+0E02   00         BRK
+0E03   00         BRK
+0E04   00         BRK
+0E05   00         BRK
+0E06   00         BRK
+0E07   00         BRK
+0E08   00         BRK
+0E09   00         BRK
+0E0A   00         BRK
+0E0B   00         BRK
+0E0C   00         BRK
+0E0D   00         BRK
+0E0E   00         BRK
+0E0F   00         BRK
+0E10   00         BRK
+0E11   00         BRK
+0E12   00         BRK
+0E13   00         BRK
+0E14   00         BRK
+0E15   00         BRK
+0E16   00         BRK
+0E17   00         BRK
+0E18   00         BRK
+0E19   00         BRK
+0E1A   00         BRK
+0E1B   00         BRK
+0E1C   00         BRK
+0E1D   00         BRK
+0E1E   0B         ???
+0E1F   09 0B      ORA #$0B
+0E21   09 08      ORA #$08
+0E23   09 08      ORA #$08
+0E25   0A         ASL A
+0E26   08         PHP
+0E27   0A         ASL A
+0E28   07         ???
+0E29   0A         ASL A
+0E2A   07         ???
+0E2B   01 07      ORA ($07,X)
+0E2D   01 01      ORA ($01,X)
+0E2F   07         ???
+0E30   01 07      ORA ($07,X)
+0E32   0A         ASL A
+0E33   07         ???
+0E34   0A         ASL A
+0E35   08         PHP
+0E36   0A         ASL A
+0E37   08         PHP
+0E38   09 08      ORA #$08
+0E3A   09 0B      ORA #$0B
+0E3C   09 0B      ORA #$0B
+0E3E   FF         ???
+0E3F              .END
+
+

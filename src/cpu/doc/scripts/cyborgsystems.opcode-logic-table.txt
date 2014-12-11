@@ -1,0 +1,222 @@
+ADC
+  t = A + M + P.C
+  P.V = (A.7!=t.7) ? 1:0
+  P.N = A.7
+  P.Z = (t==0) ? 1:0
+  IF (P.D)
+    t = bcd(A) + bcd(M) + P.C
+    P.C = (t>99) ? 1:0
+  ELSE
+    P.C = (t>255) ? 1:0
+  A = t & 0xFF                
+AND
+  A = A & M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+ASL
+  P.C = B.7
+  B = (B << 1) & $FE
+  P.N = B.7
+  P.Z = (B==0) ? 1:0 
+BCC
+  if (P.C == 0) GOTO (PC+M) 
+BCS
+  if (P.C == 1) GOTO (PC+M) 
+BEQ
+  if (P.Z == 1) GOTO (PC+M) 
+BIT
+  t = A & M
+  P.N = t.7
+  P.V = t.6
+  P.Z = (t==0) ? 1:0 
+BMI
+  if (P.N == 1) GOTO (PC+M) 
+BNE
+  if (P.Z == 0) GOTO (PC+M) 
+BPL
+  if (P.N == 0) GOTO (PC+M) 
+BRK
+  PC = PC + 1
+  bPoke(SP,PC.h)
+  SP = SP - 1
+  bPoke(SP,PC.l)
+  SP = SP - 1
+  bPoke(SP, (P|$10) )
+  SP = SP - 1
+  l = bPeek($FFFE)
+  h = bPeek($FFFF)<<8
+  PC = h|l             
+BVC
+  if (P.V == 0) GOTO (PC+M) 
+BVS
+  if (P.V == 1) GOTO (PC+M) 
+CLC
+  P.C = 0 
+CLD
+  P.D = 0 
+CLI
+  P.I = 0 
+CLV
+  P.V = 0 
+CMP
+  t = A - M
+  P.N = t.7
+  P.C = (A>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+CPX
+  t = X - M
+  P.N = t.7
+  P.C = (X>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+CPY
+  t = Y - M
+  P.N = t.7
+  P.C = (Y>=M) ? 1:0
+  P.Z = (t==0) ? 1:0 
+DEC
+  M = (M - 1) & $FF
+  P.N = M.7
+  P.Z = (M==0) ? 1:0 
+DEX
+  X = X - 1
+  P.Z = (X==0) ? 1:0
+  P.N = X.7          
+DEY
+  Y = Y - 1
+  P.Z = (Y==0) ? 1:0
+  P.N = Y.7          
+EOR
+  A = A ^ M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+INC
+  M = (M + 1) & $FF
+  P.N = M.7
+  P.Z = (M==0) ? 1:0 
+INX
+  X = X + 1
+  P.Z = (X==0) ? 1:0
+  P.N = X.7          
+INY
+  Y = Y + 1
+  P.Z = (Y==0) ? 1:0
+  P.N = Y.7          
+JMP
+  PC = M 
+JSR
+  t = PC - 1
+  bPoke(SP,t.h)
+  SP = SP - 1
+  bPoke(SP,t.l)
+  SP = SP - 1
+  PC = $A5B6    
+LDA
+  A = M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+LDX
+  X = M
+  P.N = X.7
+  P.Z = (X==0) ? 1:0
+LDY
+  Y = M
+  P.N = Y.7
+  P.Z = (Y==0) ? 1:0
+LSR
+  P.N = 0
+  P.C = B.0
+  B = (B >> 1) & $7F
+  P.Z = (B==0) ? 1:0 
+NOP
+  ~none~ 
+ORA
+  A = A | M
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+PHA
+  bPoke(SP,A)
+  SP = SP - 1 
+PHP
+  bPoke(SP,P)
+  SP = SP - 1 
+PLA
+  SP = SP + 1
+  A = bPeek(SP)
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+PLP
+  SP = SP + 1
+  P = bPeek(SP)  
+ROL
+  t = B.7
+  B = (B << 1) & $FE
+  B = B | P.C
+  P.C = t
+  P.Z = (B==0) ? 1:0
+  P.N = B.7          
+ROR
+  t = B.0
+  B = (B >> 1) & $7F
+  B = B | ((P.C) ? $80:$00)
+  P.C = t
+  P.Z = (B==0) ? 1:0
+  P.N = B.7                 
+RTI
+  SP = SP - 1
+  P = bPeek(SP)
+  SP = SP - 1
+  l = bPeek(SP)
+  SP = SP - 1
+  h = bPeek(SP)<<8
+  PC = h|l         
+RTS
+  SP = SP + 1
+  l = bPeek(SP)
+  SP = SP + 1
+  h = bPeek(SP)<<8
+  PC = (h|l) +1    
+SBC
+  IF (P.D)
+    t = bcd(A) - bcd(M) - !P.C
+    P.V = (t>99 OR t<0) ? 1:0
+  ELSE
+    t = A - M - !P.C
+    P.V = (t>127 OR t<-128) ? 1:0
+  P.C = (t>=0) ? 1:0
+  P.N = t.7
+  P.Z = (t==0) ? 1:0
+  A = t & 0xFF                    
+SEC
+  P.C = 1 
+SED
+  P.D = 1 
+SEI
+  P.I = 1 
+STA
+  M = A 
+STX
+  M = X  
+STY
+  M = Y  
+TAX
+  X = A
+  P.N = X.7
+  P.Z = (X==0) ? 1:0 
+TAY
+  Y = A
+  P.N = Y.7
+  P.Z = (Y==0) ? 1:0 
+TSX
+  X = SP
+  P.N = X.7
+  P.Z = (X==0) ? 1:0 
+TXA
+  A = X
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 
+TXS
+  SP = X 
+TYA
+  A = Y
+  P.N = A.7
+  P.Z = (A==0) ? 1:0 

@@ -1,0 +1,167 @@
+Loading sipiu-codebase/screenpattern/screenpattern.mem into memory
+0: 0->20
+1: 1->00
+2: 2->06
+3: 1536->a0
+4: 1537->00
+5: 1538->a5
+6: 1539->fe
+7: 1540->aa
+8: 1541->a5
+9: 1542->ff
+10: 1543->48
+11: 1544->8d
+12: 1545->00
+13: 1546->05
+14: 1547->18
+15: 1548->6a
+16: 1549->6a
+17: 1550->6a
+18: 1551->6a
+19: 1552->8d
+20: 1553->01
+21: 1554->05
+22: 1555->68
+23: 1556->29
+24: 1557->0f
+25: 1558->85
+26: 1559->01
+27: 1560->8a
+28: 1561->2a
+29: 1562->2a
+30: 1563->2a
+31: 1564->2a
+32: 1565->45
+33: 1566->01
+34: 1567->99
+35: 1568->00
+36: 1569->02
+37: 1570->99
+38: 1571->00
+39: 1572->03
+40: 1573->99
+41: 1574->00
+42: 1575->04
+43: 1576->88
+44: 1577->8c
+45: 1578->40
+46: 1579->05
+47: 1580->4c
+48: 1581->00
+49: 1582->06
+50: 1583->48
+51: 1584->8a
+52: 1585->48
+53: 1586->a2
+54: 1587->ff
+55: 1588->ca
+56: 1589->a5
+57: 1590->fe
+58: 1591->d0
+59: 1592->fb
+60: 1593->68
+61: 1594->aa
+62: 1595->68
+63: 1596->60
+64: 1597->60
+0000 aa 00 00 fd nv-BdIZc 00
+0600 aa 00 00 fb nv-BdIZc 20
+0602 aa 00 00 fb nv-BdIZc a0
+0604 05 00 00 fb nv-BdIZc a5
+0605 05 05 00 fb nv-BdIzc aa
+0607 00 05 00 fb nv-BdIzc a5
+0608 00 05 00 fa nv-BdIzc 48
+060b 00 05 00 fa nv-BdIzc 8d
+060c 00 05 00 fa nv-BdIzc 18
+060d 00 05 00 fa nv-BdIZc 6a
+060e 00 05 00 fa nv-BdIZc 6a
+060f 00 05 00 fa nv-BdIZc 6a
+0610 00 05 00 fa nv-BdIZc 6a
+0613 00 05 00 fa nv-BdIZc 8d
+0614 00 05 00 fb nv-BdIZc 68
+0616 00 05 00 fb nv-BdIZc 29
+0618 00 05 00 fb nv-BdIZc 85
+0619 05 05 00 fb nv-BdIzc 8a
+061a 0a 05 00 fb nv-BdIzc 2a
+061b 14 05 00 fb nv-BdIzc 2a
+061c 28 05 00 fb nv-BdIzc 2a
+061d 50 05 00 fb nv-BdIzc 2a
+061f 50 05 00 fb nv-BdIzc 45
+0622 50 05 00 fb nv-BdIzc 99
+0625 50 05 00 fb nv-BdIzc 99
+0628 50 05 00 fb nv-BdIzc 99
+0629 50 05 ff fb nv-BdIzc 88
+062c 50 05 ff fb nv-BdIzc 8c
+0600 50 05 ff fb nv-BdIzc 4c
+0602 50 05 00 fb nv-BdIzc a0
+0604 02 05 00 fb nv-BdIzc a5
+0605 02 02 00 fb nv-BdIzc aa
+0607 00 02 00 fb nv-BdIzc a5
+0608 00 02 00 fa nv-BdIzc 48
+060b 00 02 00 fa nv-BdIzc 8d
+060c 00 02 00 fa nv-BdIzc 18
+060d 00 02 00 fa nv-BdIZc 6a
+060e 00 02 00 fa nv-BdIZc 6a
+060f 00 02 00 fa nv-BdIZc 6a
+0610 00 02 00 fa nv-BdIZc 6a
+0613 00 02 00 fa nv-BdIZc 8d
+0614 00 02 00 fb nv-BdIZc 68
+0616 00 02 00 fb nv-BdIZc 29
+0618 00 02 00 fb nv-BdIZc 85
+0619 02 02 00 fb nv-BdIzc 8a
+061a 04 02 00 fb nv-BdIzc 2a
+061b 08 02 00 fb nv-BdIzc 2a
+061c 10 02 00 fb nv-BdIzc 2a
+061d 20 02 00 fb nv-BdIzc 2a
+061f 20 02 00 fb nv-BdIzc 45
+0622 20 02 00 fb nv-BdIzc 99
+0625 20 02 00 fb nv-BdIzc 99
+0628 20 02 00 fb nv-BdIzc 99
+0629 20 02 ff fb nv-BdIzc 88
+062c 20 02 ff fb nv-BdIzc 8c
+0600 20 02 ff fb nv-BdIzc 4c
+0602 20 02 00 fb nv-BdIzc a0
+0604 03 02 00 fb nv-BdIzc a5
+0605 03 03 00 fb nv-BdIzc aa
+0607 00 03 00 fb nv-BdIzc a5
+0608 00 03 00 fa nv-BdIzc 48
+060b 00 03 00 fa nv-BdIzc 8d
+060c 00 03 00 fa nv-BdIzc 18
+060d 00 03 00 fa nv-BdIZc 6a
+060e 00 03 00 fa nv-BdIZc 6a
+060f 00 03 00 fa nv-BdIZc 6a
+0610 00 03 00 fa nv-BdIZc 6a
+0613 00 03 00 fa nv-BdIZc 8d
+0614 00 03 00 fb nv-BdIZc 68
+0616 00 03 00 fb nv-BdIZc 29
+0618 00 03 00 fb nv-BdIZc 85
+0619 03 03 00 fb nv-BdIzc 8a
+061a 06 03 00 fb nv-BdIzc 2a
+061b 0c 03 00 fb nv-BdIzc 2a
+061c 18 03 00 fb nv-BdIzc 2a
+061d 30 03 00 fb nv-BdIzc 2a
+061f 30 03 00 fb nv-BdIzc 45
+0622 30 03 00 fb nv-BdIzc 99
+0625 30 03 00 fb nv-BdIzc 99
+0628 30 03 00 fb nv-BdIzc 99
+0629 30 03 ff fb nv-BdIzc 88
+062c 30 03 ff fb nv-BdIzc 8c
+0600 30 03 ff fb nv-BdIzc 4c
+0602 30 03 00 fb nv-BdIzc a0
+0604 00 03 00 fb nv-BdIzc a5
+0605 00 00 00 fb nv-BdIZc aa
+0607 00 00 00 fb nv-BdIZc a5
+0608 00 00 00 fa nv-BdIZc 48
+060b 00 00 00 fa nv-BdIZc 8d
+060c 00 00 00 fa nv-BdIZc 18
+060d 00 00 00 fa nv-BdIZc 6a
+060e 00 00 00 fa nv-BdIZc 6a
+060f 00 00 00 fa nv-BdIZc 6a
+0610 00 00 00 fa nv-BdIZc 6a
+0613 00 00 00 fa nv-BdIZc 8d
+0614 00 00 00 fb nv-BdIZc 68
+0616 00 00 00 fb nv-BdIZc 29
+0618 00 00 00 fb nv-BdIZc 85
+0619 00 00 00 fb nv-BdIZc 8a
+061a 00 00 00 fb nv-BdIZc 2a
+061b 00 00 00 fb nv-BdIZc 2a

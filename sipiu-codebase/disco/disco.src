@@ -1,0 +1,17 @@
+0600   E8         INX             start:     inx			   
+0601   8A         TXA		             txa			   
+0602   99 00 02   STA $0200,Y	             sta $200, y		   
+0605   99 00 03   STA $0300,Y	             sta $300, y		   
+0608   99 00 04   STA $0400,Y	             sta $400, y		   
+060B   99 00 05   STA $0500,Y	             sta $500, y		   
+060E   C8         INY		             iny			   
+060F   98         TYA		             tya			   
+0610   C5 10      CMP $10	             cmp 16		   
+0612   D0 04      BNE $0618	             bne do		   
+0614   C8         INY		             iny			   
+0615   4C 00 06   JMP $0600	             jmp start		   
+0618   C8         INY		  do:        iny			   
+0619   C8         INY		             iny			   
+061A   C8         INY		             iny			   
+061B   C8         INY		             iny			   
+061C   4C 00 06   JMP $0600	             jmp start               
