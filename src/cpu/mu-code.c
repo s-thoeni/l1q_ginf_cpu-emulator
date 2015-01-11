@@ -169,9 +169,6 @@ void am_abx(){
 
   alu(ALU_OP_ADD,low,idx,abrl,localflags);
   alu(ALU_OP_ADD_WITH_CARRY,dbr,"00000000",abrh,localflags);
-
-  set_rw2read();
-  access_memory();
 }
 
 void am_aby(){
@@ -194,9 +191,6 @@ void am_aby(){
 
   alu(ALU_OP_ADD,low,idy,abrl,localflags);
   alu(ALU_OP_ADD_WITH_CARRY,dbr,"00000000",abrh,localflags);
-
-  set_rw2read();
-  access_memory();
 }
 
 void cmp(char *rega, char *regb, char* flags){
@@ -539,7 +533,7 @@ void cpu_6502_beq_rel(){
  cycles: 7
 */
 void cpu_6502_brk_imp(){
-  cycles = 7;
+  /*cycles = 7;
   char high[]="11111111";
   char low[]="11111110";
   char localflags[]="00000000";
@@ -554,7 +548,7 @@ void cpu_6502_brk_imp(){
   
 
   cp_register(high, pch);
-  cp_register(low, pcl);
+  cp_register(low, pcl);*/
 }
 
 /*
@@ -3894,18 +3888,19 @@ void cpu_6502_asl_zpx (){
 void cpu_6502_asl_abs(){
   cycles = 6;
   am_abs();
-  
+
   set_rw2read();
   access_memory();
-  
+
   alu(ALU_OP_ASL, dbr, "00000000", dbr, flags);
-  
+
   set_rw2write();
   access_memory();
-  
+
   zsflagging(flags, dbr);
 
-  inc_pc();
+  dec_pc();
+  printf("HALLO: %s,%s",pcl,pch);
 }
 
 
@@ -3933,6 +3928,7 @@ void cpu_6502_asl_abx (){
   
   zsflagging(flags, dbr);
 
+  inc_pc();
   inc_pc();
 }
 
